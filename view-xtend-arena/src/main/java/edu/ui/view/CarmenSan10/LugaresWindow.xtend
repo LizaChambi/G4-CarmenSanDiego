@@ -35,7 +35,7 @@ class LugaresWindow extends Dialog<LugarInteresAppModel>{
 	override protected addActions(Panel actionsPanel) {
 		new Button(actionsPanel) => [
 			caption = "Continuar"
-			onClick[| validacionParaContinuar ]
+			onClick[| validacionParaContinuar]
 		]
 	}
 	
@@ -49,8 +49,12 @@ class LugaresWindow extends Dialog<LugarInteresAppModel>{
 	def abrirResultadoDelJuego() 
 	{
 		if (modelObject.estaResuelto())
-			//new FinDelJuegoWindow(this, modelObject).open
-		this.close()
+		{
+			modelObject.casoResulto()
+			new FinDelJuegoWindow(this, modelObject).open
+		}
+		modelObject.casoImpune()
+		new FinDelJuegoWindow(this, modelObject).open
 	}
 	
 }

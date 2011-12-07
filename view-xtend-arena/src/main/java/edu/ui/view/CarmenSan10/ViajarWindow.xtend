@@ -16,22 +16,30 @@ import edu.ui.domain.CarmenSan10.Pais
 import org.uqbar.arena.bindings.NotNullObservable
 import org.uqbar.arena.widgets.List
 import org.uqbar.arena.bindings.PropertyAdapter
+import org.uqbar.arena.layout.ColumnLayout
 
 class ViajarWindow extends SimpleWindow<ResolverMisterioAppModel>{
 	
 	new(WindowOwner parent, ResolverMisterioAppModel model) 
 	{
 		super(parent, model)
-		title = "Viajar"
 	}
 	
 	override protected createFormPanel(Panel mainPanel) 
-	{
-		val form = new Panel(mainPanel)
+	{	
+		title = "Viajar"
 		
-		new Label(form) => [
-			text = "Estas en: " + modelObject.nombrePaisActual().toUpperCase
-		]
+		val titulo = new Panel(mainPanel) => [
+						layout = new ColumnLayout(2)
+						
+						new Label(it) => [
+							text = "Estas en: "
+						]
+						
+						new Label(it) => [
+						value <=> "nombrePaisActual"
+						]	
+					]
 		
 		// Add Table componente propio
 		/* 
@@ -50,7 +58,7 @@ class ViajarWindow extends SimpleWindow<ResolverMisterioAppModel>{
 		*/
 		
 		new List<Pais> (mainPanel) => [
-			bindItemsToProperty("mapa.paises").adapter = new PropertyAdapter(Pais, "nombrePais")
+			bindItemsToProperty("conexionesDelPaisActual").adapter = new PropertyAdapter(Pais, "nombrePais")
 			bindValueToProperty("paisSeleccionado")
 		]
 	}
@@ -58,11 +66,12 @@ class ViajarWindow extends SimpleWindow<ResolverMisterioAppModel>{
 	override protected addActions(Panel actionsPanel) {
 		
 		val elementSelected = new NotNullObservable("paisSeleccionado")
-		
+		val inicioDelJuego = new NotNullObservable("enInicioDelJuego")
 		
 		new Button(actionsPanel) => [
 			caption = "Volver al Pais anterior"
 			onClick[|regresarAlPaisAnterior]
+			bindEnabled(inicioDelJuego)
 			setAsDefault // se asocia con el <Enter> del usuario
 		]
 		

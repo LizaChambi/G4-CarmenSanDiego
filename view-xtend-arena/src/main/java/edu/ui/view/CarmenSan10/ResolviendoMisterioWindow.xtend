@@ -13,6 +13,9 @@ import edu.ui.domain.AppModel.LugarInteresAppModel
 import org.uqbar.arena.bindings.PropertyAdapter
 import org.uqbar.arena.widgets.List
 
+import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
+import org.uqbar.arena.layout.ColumnLayout
+
 class ResolviendoMisterioWindow extends SimpleWindow<ResolverMisterioAppModel>
 {
 	new(WindowOwner parent, ResolverMisterioAppModel model) 
@@ -31,16 +34,35 @@ class ResolviendoMisterioWindow extends SimpleWindow<ResolverMisterioAppModel>
 			
 				val left = new Panel(it) => [
 					
-					new Label(it).text = "Estás en:" + this.modelObject.nombrePaisActual().toUpperCase // lo pasa a mayuscula
+					val titulo = new Panel(it) => [
+						layout = new ColumnLayout(2)
+						
+						new Label(it) => [
+							text = "Estas en: "
+						]
+						
+						new Label(it) => [
+						value <=> "nombrePaisActual"
+						]	
+					]
 					
 					new Button(it) => [
 						caption = "Orden De Arresto"
 						onClick ([|abrirOrdenDeArresto])
 					]
 					
-					new Label(it) => [
-						fontSize = 8
-						text = estadoDeLaOrdenDeArresto() // no esta funcionando: actualizar el estado
+					val estadoDeLaOrden = new Panel(it) => [
+						layout = new ColumnLayout(2)
+						
+						new Label(it) => [
+							value <=> "estadoDeLaOrdenDeArresto"
+							fontSize = 8
+						]
+						
+						new Label(it) => [
+							fontSize = 8
+							value <=> "ordenPara"
+						]	
 					]
 					
 					new Button(it) => [
@@ -80,7 +102,11 @@ class ResolviendoMisterioWindow extends SimpleWindow<ResolverMisterioAppModel>
 				layout = new VerticalLayout
 			
 				new Label(it).text = "Recorrido criminal:"
-				new Label(it).text = recorridoDelCriminal()
+				
+				new Label(it) => [
+						value <=> "paisesAcertados"
+					]	
+						
 				
 				new Label(it).text = "Destinos fallidos:"
 				
@@ -92,18 +118,6 @@ class ResolviendoMisterioWindow extends SimpleWindow<ResolverMisterioAppModel>
 			]
 		]
 		
-	}
-	
-	def recorridoDelCriminal() 
-	{
-		val nombrePaises = modelObject.recorridoCriminal
-		var res = ""
-		nombrePaises.reverse
-		for (p : nombrePaises)
-		{
-			res = res + "<-" + p
-		}
-		res
 	}
 	
 	def abrir3erLugarDeInteres() 
@@ -154,12 +168,12 @@ class ResolviendoMisterioWindow extends SimpleWindow<ResolverMisterioAppModel>
 		// Add componente propio de Lista/Tabla
 	}
 	
-	def recorridoCriminal(Panel panelPrincipal) 
-	{
-		val panelRecorrido = new Panel (panelPrincipal)
-		panelRecorrido.layout = new VerticalLayout
-		new Label(panelRecorrido).text = "Argentina" + "<-" + "Peru" + "<-" + "Italia" + "<-" + "Egipto"
-	}
+//	def recorridoCriminal(Panel panelPrincipal) 
+//	{
+//		val panelRecorrido = new Panel (panelPrincipal)
+//		panelRecorrido.layout = new VerticalLayout
+//		new Label(panelRecorrido).text = "Argentina" + "<-" + "Peru" + "<-" + "Italia" + "<-" + "Egipto"
+//	}
 	
 	def estadoDeLaOrdenDeArresto() 
 	{

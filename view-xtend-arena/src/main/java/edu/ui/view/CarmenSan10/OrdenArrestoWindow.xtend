@@ -27,7 +27,7 @@ class OrdenArrestoWindow extends SimpleWindow<ResolverMisterioAppModel>{
 		val form = new Panel(mainPanel)
 		
 		new Label(form) => [
-			text = estadoDeLaOrdenDeArresto
+			text = "Orden de arresto emitida contra:"
 		]
 		
 		val list = new Panel(form) => [
@@ -46,18 +46,6 @@ class OrdenArrestoWindow extends SimpleWindow<ResolverMisterioAppModel>{
 			propiedadModelos.adaptWith(typeof(Villano), "nombre") // tipo y propiedad de cada elemento con ese tipo
 		]
 		
-	}
-	
-	def estadoDeLaOrdenDeArresto() 
-	{
-		if (modelObject.ordenPara == "")
-		{
-			"Sin emitir orden de arresto."
-		}
-		else
-		{
-			"Orden ya emitida:" + modelObject.ordenPara
-		}
 	}
 	
 	override protected addActions(Panel actionsPanel) {

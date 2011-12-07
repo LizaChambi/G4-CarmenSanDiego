@@ -13,22 +13,29 @@ import edu.ui.domain.CarmenSan10.Mapamundi
 import org.uqbar.arena.bindings.ObservableProperty
 import org.uqbar.commons.model.ObservableUtils
 import java.util.List
+import java.util.Observable
 
 @Accessors
 @TransactionalAndObservable
 class ResolverMisterioAppModel 
 {
-	Mapamundi mapa
+	
 	Expediente expediente
 	Detective detective
 	Caso caso
+	
+	Boolean enInicioDelJuego
 	Pais paisSeleccionado
 	Villano villanoSeleccionado
-	List<Pais> paisesFallidos
-	List<Pais> paisesAcertados
 	String nombrePaisActual
+	List<Pais> conexionesDelPaisActual
+	List<Pais> paisesFallidos
+	String paisesAcertados
 	String ordenPara
+	String estadoDeLaOrdenDeArresto
 	String nombreDelCaso
+	
+	// trabajando con esto
 	LugarDeInteres lugar1
 	LugarDeInteres lugar2
 	LugarDeInteres lugar3
@@ -38,20 +45,39 @@ class ResolverMisterioAppModel
 	
 	new(ACME acme, Mapamundi mapamundi) 
 	{
-		this.mapa = mapamundi
 		this.caso = acme.caso
 		this.expediente = acme.villanos
 		this.detective = acme.resolvedorDeCasos
 		detective.viajarA(caso.planDeEscape.get(0))
 		
-		// inicializacion de propiedades (es necesario? :/)
+		this.conexionesDelPaisActual = detective.ubicacionActual.paisesConexionAerea
 		paisesFallidos = detective.destinosFallidos(caso.planDeEscape)
-		nombrePaisActual = detective.nombreDelPaisActual
+		paisesAcertados = listar(recorridoCriminal())
+		nombrePaisActual = detective.nombreDelPaisActual.toUpperCase
+		estadoDeLaOrdenDeArresto = "Sin emitir orden de arresto."
 		ordenPara = ""
 		nombreDelCaso = caso.objetoDelRobo
 		lugar1 = detective.ubicacionActual.lugarDeInteres1 
 		lugar2 = detective.ubicacionActual.lugarDeInteres2 
 		lugar3 = detective.ubicacionActual.lugarDeInteres3 
+	}
+	
+	def listar(List<String> paises) 
+	{
+		var resultado = ""
+		if (paises.size>=1)
+		{
+			resultado = paises.get(0)
+		}
+		
+		val paisesRes = paises.tail.toList
+		
+		for(p : paisesRes)
+		{
+			resultado = p + "<-" + resultado
+		}
+		
+		resultado
 	}
 	
 	def tituloDelCaso()
@@ -74,30 +100,71 @@ class ResolverMisterioAppModel
 		expediente
 	}
 	
-	def nombrePaisActual()
+	def getNombrePaisActual()
 	{
-		detective.nombreDelPaisActual
+		nombrePaisActual
+		
 	}
+	
+	def setNombrePaisActual(Pais pais)
+	{
+		nombrePaisActual = pais.nombrePais.toUpperCase
+		ObservableUtils.firePropertyChanged(this, "nombrePaisActual", nombrePaisActual)
+	}
+	
 	
 	def regresarAlPaisAnterior() 
 	{
 		detective.regresarAlPaisAnterior
+		
+		if (detective.esInicioDelJuego)
+		{
+			enInicioDelJuego = null
+		}
+		
+		setNombrePaisActual(detective.ubicacionActual)
+		setConexionesDelPaisActual(detective.ubicacionActual.paisesConexionAerea)
+		
+	}
+	
+	def setConexionesDelPaisActual(List<Pais> conexiones)
+	{
+		conexionesDelPaisActual = conexiones
+		ObservableUtils.firePropertyChanged(this, "conexionesDelPaisActual", conexionesDelPaisActual)
+	}
+	
+	def setPaisesFallidos (List<Pais> paises)
+	{
+		paisesFallidos = paises
+		ObservableUtils.firePropertyChanged(this, "paisesFallidos", paisesFallidos)
+	}
+	
+	def setPaisesAcertados(String paises)
+	{
+		paisesAcertados = paises
+		ObservableUtils.firePropertyChanged(this, "paisesAcertados", paisesAcertados)
 	}
 	
 	def viajar()
 	{
 		detective.viajarA(paisSeleccionado)
-		// Actualizo
-		nombrePaisActual = detective.nombreDelPaisActual
-		paisesFallidos = detective.destinosFallidos(caso.planDeEscape)
-		paisesAcertados = detective.paisesVisitados(caso.planDeEscape)
+		
+		// activo el boton para regresar al pais anterior
+		enInicioDelJuego = false
+		
+		// actualizo los valores en pantalla
+		setNombrePaisActual(detective.ubicacionActual)
+		setConexionesDelPaisActual(detective.ubicacionActual.paisesConexionAerea)
+		setPaisesFallidos (detective.destinosFallidos(caso.planDeEscape))
+		setPaisesAcertados (listar(recorridoCriminal()))
+		
 		lugar1 = detective.ubicacionActual.lugarDeInteres1 
 		lugar2 = detective.ubicacionActual.lugarDeInteres2 
 		lugar3 = detective.ubicacionActual.lugarDeInteres3 
-		ObservableUtils.firePropertyChanged(this, "nombrePaisActual", nombrePaisActual)
-		ObservableUtils.firePropertyChanged(this, "lugar1", lugar1)
-		ObservableUtils.firePropertyChanged(this, "lugar2", lugar2)
-		ObservableUtils.firePropertyChanged(this, "lugar3", lugar3)
+//		ObservableUtils.firePropertyChanged(this, "nombrePaisActual", nombrePaisActual)
+//		ObservableUtils.firePropertyChanged(this, "lugar1", lugar1)
+//		ObservableUtils.firePropertyChanged(this, "lugar2", lugar2)
+//		ObservableUtils.firePropertyChanged(this, "lugar3", lugar3)
 	}
 	
 	def recorridoCriminal()
@@ -127,11 +194,23 @@ class ResolverMisterioAppModel
 		lugar3.nombre
 	}
 	
+	def setOrdenPara(String nombre)
+	{
+		ordenPara = nombre
+		ObservableUtils.firePropertyChanged(this, "ordenPara", ordenPara)
+	}
+	
+	def setEstadoDeLaOrdenDeArresto(String estado)
+	{
+		estadoDeLaOrdenDeArresto = estado
+		ObservableUtils.firePropertyChanged(this, "estadoDeLaOrdenDeArresto", estadoDeLaOrdenDeArresto)
+	}
+	
 	def generarOrdenDeArrestoPara() 
 	{
 		detective.ordenarArresto(villanoSeleccionado)
-		ordenPara = detective.ordenDeArresto
-		ObservableUtils.firePropertyChanged(this, "ordenDeArresto", detective)
+		setOrdenPara(detective.ordenDeArresto)
+		setEstadoDeLaOrdenDeArresto("Orden ya emitida: ")
 	}
 	
 }

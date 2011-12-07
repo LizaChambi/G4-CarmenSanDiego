@@ -13,6 +13,9 @@ class LugarInteresAppModel
 	LugarDeInteres lugar
 	Caso caso
 	Detective detective
+	String tituloDelResultado
+	String estadoFinalDelCaso
+	String resumenFinal
 	
 	new(){}
 	
@@ -21,6 +24,9 @@ class LugarInteresAppModel
 		this.lugar = lugar
 		this.caso = caso
 		this.detective = doc
+		tituloDelResultado = ""
+		estadoFinalDelCaso = ""
+		resumenFinal = ""
 	}
 	
 	def nombreDelCaso()
@@ -53,6 +59,20 @@ class LugarInteresAppModel
 	def estaResuelto() 
 	{
 		caso.estaResuelto(detective)
+	}
+	
+	def casoResulto() 
+	{
+		tituloDelResultado = "En hora buena!!!"
+		estadoFinalDelCaso = "Ha detenido a " + caso.responsable.nombre + " y recuperado la Tumba del Faraon"
+		resumenFinal = "Felicitaciones!!!!"
+	}
+	
+	def casoImpune() 
+	{
+		tituloDelResultado = "Malas noticias :("
+		estadoFinalDelCaso = "Ha detenido a " + detective.ordenDeArresto + ", pero usted tenia una orden contra" + caso.responsable.nombre
+		resumenFinal = "Lamentablemente este crimen quedará impune."
 	}
 	
 	

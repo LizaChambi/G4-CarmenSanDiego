@@ -62,6 +62,7 @@ class MenuDeAccionesWindow extends SimpleWindow<CarmenSandiegoAppModel> {
 	{
 		val resolviendoMisterio = new ResolverMisterioAppModel (modelObject.acme, modelObject.mapamundi)
 		new InicioDelJuegoWindow(this, resolviendoMisterio).open
+		this.close()
 	}
 	
 	def mapamundi(Mapamundi mapa) 

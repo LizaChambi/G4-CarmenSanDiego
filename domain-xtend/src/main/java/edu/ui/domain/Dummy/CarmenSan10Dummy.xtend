@@ -33,17 +33,16 @@ class CarmenSan10Dummy
 		
 		
 		val brazil = new Pais("Brazil", #[LugarDeInteres.EMBAJADA, LugarDeInteres.BANCO, LugarDeInteres.CLUB], #[venezuela]) => [
-			caracteristicaPais = #[new Caracteristicas("Joga bonito"), new Caracteristicas("Su bandera es verde y amarilla")]
+			caracteristicaPais = #[new Caracteristicas("Se habla portugues"), new Caracteristicas("Su bandera es verde y amarilla")]
 		]
 		
-		val argentina = new Pais("Argentina", #[LugarDeInteres.EMBAJADA, LugarDeInteres.BIBLIOTECA, LugarDeInteres.BANCO], #[venezuela, brazil]) => [
+		val uruguay = new Pais("Uruguay", #[LugarDeInteres.BANCO, LugarDeInteres.BIBLIOTECA, LugarDeInteres.CLUB], #[venezuela, brazil]) => [
+			caracteristicaPais = #[new Caracteristicas("A toda hora mate"), new Caracteristicas("Es una una provincia de Argentina")]
+		]
+		
+		val argentina = new Pais("Argentina", #[LugarDeInteres.EMBAJADA, LugarDeInteres.BIBLIOTECA, LugarDeInteres.BANCO], #[venezuela, brazil, uruguay]) => [
 			caracteristicaPais = #[new Caracteristicas("Bandera azul y blanca"), new Caracteristicas("Su arbol nacional es el Ceibo")]
 		]
-		
-		val uruguay = new Pais("Uruguay", #[LugarDeInteres.BANCO, LugarDeInteres.BIBLIOTECA, LugarDeInteres.CLUB], #[venezuela, brazil, argentina]) => [
-			caracteristicaPais = #[new Caracteristicas("A toda hora mate :D"), new Caracteristicas("Es una una provincia de Argentina")]
-		]
-		
 		
 		mapamundi.setPaisMini(venezuela) // id = 1
 		mapamundi.setPaisMini(brazil)	 // id = 2

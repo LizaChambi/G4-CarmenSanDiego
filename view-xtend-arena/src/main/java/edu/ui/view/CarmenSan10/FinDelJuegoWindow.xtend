@@ -5,6 +5,8 @@ import edu.ui.domain.AppModel.MapamundiAppModel
 import org.uqbar.arena.windows.WindowOwner
 import org.uqbar.arena.widgets.Panel
 import edu.ui.domain.AppModel.LugarInteresAppModel
+import org.uqbar.arena.widgets.Label
+import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 
 class FinDelJuegoWindow extends Dialog<LugarInteresAppModel>{
 	
@@ -16,6 +18,16 @@ class FinDelJuegoWindow extends Dialog<LugarInteresAppModel>{
 	override protected createFormPanel(Panel mainPanel) {
 		title = modelObject.nombreDelCaso + "- Resuelto"
 		
+		new Label(mainPanel) => [
+						value <=> "tituloDelResultado"
+					]
+		new Label(mainPanel) => [
+						value <=> "estadoFinalDelCaso"
+					]
+					
+		new Label(mainPanel) => [
+						value <=> "resumenFinal"
+					]
 	}
 	
 }

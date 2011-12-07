@@ -188,13 +188,12 @@ class Detective
 		visitados.filter[p | p.estaDentroDelRecorrido(pais)].toList
 	}
 	
-	// esto debe estar aca o en el modelObject?
-	def recorridoCriminal(List<Pais> pais)
-	{
-		val nombresDeLosPaises = paisesVisitados(pais)
-		
-		nombresDeLosPaises.map[p | p.nombrePais].toList
-	}
+//	def recorridoCriminal(List<Pais> pais)
+//	{
+//		val nombresDeLosPaises = paisesVisitados(pais)
+//		
+//		nombresDeLosPaises.map[p | p.nombrePais].toList
+//	}
 	
 	def agregarSiPuede(ArrayList<Pais> paises, Pais pais) 
 	{
@@ -202,6 +201,11 @@ class Detective
 		{
 			paises.add(pais)
 		}	
+	}
+	
+	def esInicioDelJuego() 
+	{
+		recorrido.size == 1
 	}
 	
 	
