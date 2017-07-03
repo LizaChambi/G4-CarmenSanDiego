@@ -1,16 +1,17 @@
 package edu.ui.view.CarmenSan10
 
-import org.uqbar.arena.windows.SimpleWindow
 import edu.ui.domain.AppModel.MapamundiAppModel
-import org.uqbar.arena.windows.WindowOwner
-import org.uqbar.arena.widgets.Panel
-import org.uqbar.arena.widgets.Label
+import edu.ui.domain.AppModel.ResolverMisterioAppModel
+import edu.ui.domain.CarmenSan10.Detective
+import edu.ui.domain.CarmenSan10.Villano
+import org.uqbar.arena.bindings.ObservableProperty
 import org.uqbar.arena.layout.HorizontalLayout
 import org.uqbar.arena.widgets.Button
-import edu.ui.domain.CarmenSan10.Detective
-import edu.ui.domain.AppModel.ResolverMisterioAppModel
+import org.uqbar.arena.widgets.Label
+import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.widgets.Selector
-import edu.ui.domain.CarmenSan10.Villano
+import org.uqbar.arena.windows.SimpleWindow
+import org.uqbar.arena.windows.WindowOwner
 
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 
@@ -18,7 +19,7 @@ class OrdenArrestoWindow extends SimpleWindow<ResolverMisterioAppModel>{
 	
 	new(WindowOwner parent, ResolverMisterioAppModel model) {
 		super(parent, model)
-		title = "Resolviendo:" // + defaultTitle(modelObject.nombreDelCaso)
+		title = "Resolviendo:" + modelObject.nombreDelCaso
 	}
 	
 	override protected createFormPanel(Panel mainPanel) {
@@ -26,7 +27,7 @@ class OrdenArrestoWindow extends SimpleWindow<ResolverMisterioAppModel>{
 		val form = new Panel(mainPanel)
 		
 		new Label(form) => [
-			text = "Orden de arresto emitida contra:" // + modelObject.ordenDeArresto
+			text = estadoDeLaOrdenDeArresto
 		]
 		
 		val list = new Panel(form) => [
@@ -37,24 +38,39 @@ class OrdenArrestoWindow extends SimpleWindow<ResolverMisterioAppModel>{
 			text = "Villano:"
 		]
 		
-		// new SelectorPropio ADD
-		
-		/*
 		new Selector<Villano>(list) => [
 			allowNull(false)
-			value <=> "nombre"
-			val propiedadModelos = bindItems(new ObservableProperty(repoVillanos, "modelos"))
-			propiedadModelos.adaptWith(typeof(Villano), "descripcionEntera") // opción A
-			//propiedadModelos.adapter = new PropertyAdapter(typeof(Modelo), "descripcionEntera") // opción B
+			items <=> "expediente.villanos"
+			value <=> "villanoSeleccionado"
+			val propiedadModelos = bindItems(new ObservableProperty(modelObject, "expediente.villanos"))
+			propiedadModelos.adaptWith(typeof(Villano), "nombre") // tipo y propiedad de cada elemento con ese tipo
 		]
-		*/
 		
+	}
+	
+	def estadoDeLaOrdenDeArresto() 
+	{
+		if (modelObject.ordenPara == "")
+		{
+			"Sin emitir orden de arresto."
+		}
+		else
+		{
+			"Orden ya emitida:" + modelObject.ordenPara
+		}
 	}
 	
 	override protected addActions(Panel actionsPanel) {
 		new Button(actionsPanel) => [
 			caption = "Generar orden de arresto"
+			onClick ([|generarOrdenDeArresto()])
 		]
+	}
+	
+	protected def void generarOrdenDeArresto() 
+	{
+		modelObject.generarOrdenDeArrestoPara
+		this.close()
 	}
 	
 	def defaultTitle(String tituloDelCaso) {

@@ -2,7 +2,6 @@ package edu.ui.domain.CarmenSan10;
 
 import org.uqbar.commons.utils.TransactionalAndObservable;
 import edu.ui.domain.CarmenSan10.LugarDeInteres;
-import java.util.List;
 
 @TransactionalAndObservable
 public enum LugarDeInteres {

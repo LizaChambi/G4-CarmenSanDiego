@@ -9,11 +9,13 @@ import java.io.Serializable
 import java.util.List
 //import org.uqbar.commons.utils.Dependencies
 import org.uqbar.commons.model.ObservableUtils
+import edu.ui.domain.CarmenSan10.Mapamundi
 
 @Accessors
 @Observable
-class MapamundiAppModel implements Serializable{
+class MapamundiAppModel{
 	
+	Mapamundi mapa
 	Pais itemSeleccionado
 	
 	/**
@@ -23,16 +25,20 @@ class MapamundiAppModel implements Serializable{
 	
 	new() {}
 	
-	def RepoMapamundi getPaisesRepo() 
-	{
-		ApplicationContext.instance.getSingleton(typeof(Pais))
+	new(Mapamundi mapamundi) {
+		mapa = mapamundi
 	}
 	
-	def List<Pais> getTodosLosPaises(){
-		paisesRepo.objects
+	def eliminarPaisSeleccionado() {
+		mapa.borrarPais(itemSeleccionado)
+		itemSeleccionado = null
+		ObservableUtils.firePropertyChanged(this,"paises", mapa)
 	}
 	
-	def void setTodosLosPaises(List<Pais> paises) {}
+	def agregarPais(Pais nuevoPais) {
+		mapa.agregarPais(nuevoPais)
+	}
+	
 	
 //	def List<String> getTodasLasCaracteristicas() {
 //		itemSeleccionado.caracteristicaPais
@@ -53,39 +59,5 @@ class MapamundiAppModel implements Serializable{
 	}
 	
 	def void setNombreCoxiones(List<String> nombresPaises) {}
-	
-	def void search() {
-		paisesRepo.search(itemSeleccionado.nombrePais)
-	}
-	
-	def String getNombreCaso() {
-		
-	}
-	
-	def String getNombreVillano() {
-	}
-	
-	def String getNombrePais() {
-	}
-	
-	def void getViajar() {
-	}
-	
-	def String getNombreLugar() {
-	}
-	
-	def void validacionContinuar() {
-	}
-	
-	def String getObjetoRobado() {
-	}
-	
-	
-	def eliminarPaisSeleccionado() {
-		getPaisesRepo().delete(itemSeleccionado)
-		this.search()
-		itemSeleccionado = null
-		ObservableUtils.firePropertyChanged(this,"todosLosPaises", todosLosPaises)
-	}
 	
 }

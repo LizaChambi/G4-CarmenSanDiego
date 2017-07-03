@@ -24,6 +24,13 @@ class ACME
 		resolvedorDeCasos = resolvedor
 	}
 	
+	new (Expediente expediente, Detective resolvedor, Caso caso) 
+	{
+		villanos = expediente
+		resolvedorDeCasos = resolvedor
+		this.caso = caso
+	}
+	
 	/*
 	new(Detective resolvedor) { Preguntaar
 		expedientes = new ArrayList<Villano>()
@@ -90,6 +97,11 @@ class ACME
 	def nombreDeLosVillanos() 
 	{
 		villanos.nombreDeLosVillanos()
+	}
+	
+	def nombreDelPaisActual() 
+	{
+		resolvedorDeCasos.nombreDelPaisActual
 	}
 	
 }

@@ -46,6 +46,11 @@ class Caso
 	}
 	
 	def mostrarPista(Pais p, LugarDeInteres lugar) {
+		
+		/**
+		 * Falta contemplar el caso en el que el pais NO se encuentra en el    => RESUELTO
+		 * planDeEscape (responde el cuidador)
+		 */
 		 
 		if (p.estaDentroDelRecorrido(planDeEscape))
 		{
@@ -142,11 +147,13 @@ class Caso
 		planDeEscape.exists[p | p.nombrePais == pais.nombrePais]
 	}
 	
-	def esElFinDelCaso (Pais paisActual) 
+	def esElFinDelCaso (Detective doc) 
 	{
-		paisActual.esElFinalDelRecorrido(planDeEscape)
+		doc.ubicacionActual.esElFinalDelRecorrido(planDeEscape)
+		&& doc.ultimoLugarVisitado == lugarDelVillano 
 	}
 	
+	// Obtiene el ultimo pais del plan de escape del villano
 	def ultimoPaisDelRecorrido()
 	{
 		planDeEscape.get(planDeEscape.size-1)
@@ -158,6 +165,7 @@ class Caso
 		planDeEscape.get(posicionPaisActual+1)
 	}
 	
+	// Pregunta si el caso fue resulto con éxito
 	def estaResuelto(Detective doc) {
 		
 		doc.ubicacionActual.esElFinalDelRecorrido(planDeEscape) &&

@@ -16,11 +16,13 @@ import org.uqbar.commons.utils.ApplicationContext
 import edu.ui.domain.AppModel.PaisAppModel
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 import edu.ui.domain.CarmenSan10.Caracteristicas
+import edu.ui.domain.AppModel.MapamundiAppModel
+import edu.ui.domain.CarmenSan10.LugarDeInteres
 
-class EditarPaisWindows extends TransactionalDialog<PaisAppModel>{
+class EditarPaisWindows extends TransactionalDialog<MapamundiAppModel>{
 	
-	new(WindowOwner parent, Pais model) {
-		super(parent, new PaisAppModel(model))
+	new(WindowOwner parent, MapamundiAppModel model) {
+		super(parent, model)
 		title = defaultTitle
 	}
 	
@@ -40,7 +42,7 @@ class EditarPaisWindows extends TransactionalDialog<PaisAppModel>{
 				]
 				
 				new TextBox(editCol) => [
-					value <=> "nombrePais"
+					value <=> "itemSeleccionado.nombrePais"
 					width = 200
 				]
 				
@@ -54,8 +56,8 @@ class EditarPaisWindows extends TransactionalDialog<PaisAppModel>{
 				]
 			
 			val table = new Table<Caracteristicas>(general, typeof(Caracteristicas)) => [
-				items <=> "paisSelected.caracteristicaPais"
-				value <=> "paisSelected"
+				items <=> "itemSeleccionado.caracteristicaPais"
+				value <=> "itemSeleccionado"
 			]
 			
 				new Column<Caracteristicas>(table) => [
@@ -77,7 +79,7 @@ class EditarPaisWindows extends TransactionalDialog<PaisAppModel>{
 			]
 			
 			val table2 = new Table<Pais>(general, typeof(Pais)) => [
-				items <=> "paisesConexionAerea"
+				items <=> "itemSeleccionado.paisesConexionAerea"
 			]
 			
 				new Column<Pais>(table2) => [
@@ -98,13 +100,13 @@ class EditarPaisWindows extends TransactionalDialog<PaisAppModel>{
 					onClick([| this.editarLugares])
 				]
 				
-				val table3 = new Table<Pais>(general, typeof(Pais)) => [
-					items <=> "lugares"
+				val table3 = new Table<LugarDeInteres>(general, typeof(LugarDeInteres)) => [
+					items <=> "itemSeleccionado.lugares"
 				]
 				
-					new Column<Pais>(table3) => [
+					new Column<LugarDeInteres>(table3) => [
 						title = "Lugares de Interes"
-						bindContentsToProperty("nombreLugares")
+						bindContentsToProperty("nombre")
 					]
 		
 				val editHor = new Panel(general) => [
@@ -119,35 +121,24 @@ class EditarPaisWindows extends TransactionalDialog<PaisAppModel>{
 				]
 	}
 	
-	
-	override executeTask() {
-		if (modelObject.paisSelected.isNew) {
-			paisesRepo.create(modelObject.paisSelected)
-		} else {
-			paisesRepo.update(modelObject.paisSelected)
-		}
-		super.executeTask()
-	}
-	
-	def RepoMapamundi getPaisesRepo() {
-		ApplicationContext.instance.getSingleton(typeof(Pais))
-	}
-	
 	def editarConexiones() {
-		new EditorSuperConexion(this, modelObject.paisSelected).open
+		var model = new PaisAppModel(modelObject.itemSeleccionado)
+		new EditorSuperConexion(this, model).open
 	}
 	
 	def editarLugares() {
-		new EditorLugarInteresWindow(this, modelObject.paisSelected).open
+		var model = new PaisAppModel(modelObject.itemSeleccionado)
+		new EditorLugarInteresWindow(this, model).open
 	}
 	
 	def editarCaracteristica() {
-		new EditorCaracteristicaWindow(this, modelObject.paisSelected).open
+		var model = new PaisAppModel(modelObject.itemSeleccionado)
+		new EditorCaracteristicaWindow(this, model).open
 	}
 
 	def realizarCambios() 
 	{
-		// Guardar cambios del pais seleccionado
+		// Falta guardar cambios del pais seleccionado!!!!
 		this.close()
 	}
 	

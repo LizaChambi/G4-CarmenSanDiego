@@ -18,7 +18,6 @@ class NuevoVillanoWindow extends EditarVillanoWindow
 	override def realizarCambios()
 	{
 		// Agregar el nuevo villano
-		// modelObject.agregarVillano(itemSeleccionado) ??? Creo que no es así
 		this.close()
 	}
 }

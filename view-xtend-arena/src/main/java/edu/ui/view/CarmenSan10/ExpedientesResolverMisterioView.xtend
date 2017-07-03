@@ -15,12 +15,8 @@ import edu.ui.domain.AppModel.ExpedienteAppModel
 
 class ExpedientesResolverMisterioView extends SimpleWindow<ExpedienteAppModel> {
 	
-	new (WindowOwner parent){
-		super(parent,new ExpedienteAppModel)
-	}
-	
-	override protected addActions(Panel actionsPanel) {
-		// no tiene acciones para resolver misterio
+	new (WindowOwner parent, ExpedienteAppModel model){
+		super(parent, model)
 	}
 	
 	override def createMainTemplate (Panel mainPanel){
@@ -56,7 +52,7 @@ class ExpedientesResolverMisterioView extends SimpleWindow<ExpedienteAppModel> {
 		new Column<Villano>(table) => [
 			title = "Villano"
 			fixedSize = 150 // ni idea
-			bindContentsToProperty("nombre")//bindeamos al nombre del villano en cuestion
+			bindContentsToProperty("nombre")
 		]
 	
 	}
@@ -66,12 +62,12 @@ class ExpedientesResolverMisterioView extends SimpleWindow<ExpedienteAppModel> {
 		this.crearPanelDetallesVillano (panelDerecho)
 		new Label (panelDerecho) => [
 			text = "Señas Particulares"
-			//foreground = Color.BLUE // detalle para mas adelante
+			//foreground = Color.BLUE 
 		]
 		// luego pongo la tabla
 		var tablaDeArriba = new Table<Villano>(panelDerecho, typeof(Villano)) => [
-			height = 200 //ni idea
-			width = 450  //tampoco
+			height = 200
+			width = 450
 			bindItemsToProperty("señas")
 			bindValueToProperty("selectedSeña")
 		]
@@ -84,12 +80,12 @@ class ExpedientesResolverMisterioView extends SimpleWindow<ExpedienteAppModel> {
 		
 		new Label (panelDerecho) => [
 			text = "Hobbies"
-			//foreground = Color.BLUE // detalle para mas adelante
+			//foreground = Color.BLUE 
 		]
 		// ahora la otra tabla
 		var tablaDeAbajo = new Table<Villano>(panelDerecho, typeof(Villano)) => [
-			height = 200 //ni idea
-			width = 450  //tampoco
+			height = 200 
+			width = 450 
 			bindItemsToProperty("hobbies")
 			bindValueToProperty("selectedHobbie")
 		]
@@ -107,19 +103,21 @@ class ExpedientesResolverMisterioView extends SimpleWindow<ExpedienteAppModel> {
 		]
 		new Label (detallesPanel) => [
 			text = "Nombre"
-			//foreground = Color.BLUE // detalle para mas adelante
+			//foreground = Color.BLUE
 		]
 		new Label (detallesPanel) => [
 			value <=> "nombre"
 		]
 		new Label (detallesPanel) => [
 			text = "Sexo"
-			//foreground = Color.BLUE // detalle para mas adelante
+			//foreground = Color.BLUE 
 		]
 		new Label (detallesPanel) => [
 			value <=> "sexo"
 		]
 	}
 	
+	override protected addActions(Panel actionsPanel) {
+	}
 	
 }

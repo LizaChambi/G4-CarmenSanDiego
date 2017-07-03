@@ -14,10 +14,11 @@ import org.uqbar.commons.utils.ApplicationContext
 import edu.ui.domain.Repo.RepoMapamundi
 import org.uqbar.arena.widgets.Selector
 import org.uqbar.arena.bindings.ObservableProperty
+import edu.ui.domain.AppModel.PaisAppModel
 
-class EditorSuperConexion extends TransactionalDialog<Pais>{
+class EditorSuperConexion extends TransactionalDialog<PaisAppModel>{
 	
-	new(WindowOwner owner, Pais model) {
+	new(WindowOwner owner, PaisAppModel model) {
 		super(owner, model)
 		title = defaultTitle()
 	}
@@ -42,7 +43,7 @@ class EditorSuperConexion extends TransactionalDialog<Pais>{
 		
 		new Button(general) => [
 			caption = "Eliminar"
-			//onClick([| modelObject.eliminarCaracteristicaSelecionada])
+			onClick([| modelObject.eliminarConexionSelecionada])
 		]
 		
 		val editHor = new Panel(general) =>[
@@ -51,7 +52,7 @@ class EditorSuperConexion extends TransactionalDialog<Pais>{
 		
 		new Selector<Pais>(editHor) => [
 			allowNull(false)
-			value <=> "paisesConexionAerea"
+			value <=> "paisDeConexSeleccionado"
 			val propiedadModelos = bindItems(new ObservableProperty(paisesRepo, "paises"))
 			propiedadModelos.adaptWith(typeof(Pais), "nombrePais") // opción A
 		]
@@ -65,15 +66,6 @@ class EditorSuperConexion extends TransactionalDialog<Pais>{
 			caption = "Aceptar"
 			onClick([| this.accept])
 		]
-	}
-	
-	def RepoMapamundi getPaisesRepo() {
-		ApplicationContext.instance.getSingleton(typeof(Pais))
-	}
-	
-	override executeTask() {
-		paisesRepo.update(modelObject)
-		super.executeTask()
 	}
 	
 }

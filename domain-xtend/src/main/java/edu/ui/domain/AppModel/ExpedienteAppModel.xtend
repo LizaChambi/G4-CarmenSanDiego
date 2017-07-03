@@ -7,14 +7,20 @@ import java.util.List
 import org.uqbar.commons.utils.ApplicationContext
 import java.io.Serializable
 import org.uqbar.commons.utils.Observable
+import edu.ui.domain.CarmenSan10.Expediente
 
 @Accessors
 @Observable
 class ExpedienteAppModel implements Serializable {
-	//private Expediente expediente
+	
+	private Expediente expediente
 	Villano selectedVillano
 	
 	new(){}
+	
+	new(Expediente expediente) {
+		this.expediente = expediente
+	}
 	
 	def getNombreCaso() {
 		

@@ -10,14 +10,17 @@ import edu.ui.domain.CarmenSan10.Mapamundi
 import edu.ui.domain.CarmenSan10.Caso
 import edu.ui.domain.AppModel.CarmenSandiegoAppModel
 import edu.ui.domain.CarmenSan10.ACME
+import edu.ui.domain.Dummy.CarmenSan10Dummy
+import edu.ui.domain.CarmenSan10.Expediente
+import edu.ui.domain.AppModel.ResolverMisterioAppModel
 
 class MenuDeAccionesWindow extends SimpleWindow<CarmenSandiegoAppModel> {
 	/*
-	 * esta es la primer ventana que me aparece cuando inicio el juego,
-	 * la hice extender de detective, ya que son comportamientos basicos de un detective
+	 * esta es la primer ventana que me aparece cuando inicio el juego.
 	 */
-	 new (WindowOwner parent){
-	 	super (parent, new CarmenSandiegoAppModel(new Mapamundi, new ACME()))
+	 CarmenSan10Dummy dummy = new CarmenSan10Dummy();
+	 new (WindowOwner parent, CarmenSan10Dummy dummy){
+	 	super (parent, new CarmenSandiegoAppModel(dummy))
 	 }
 		
 		override def createMainTemplate (Panel mainPanel){
@@ -34,7 +37,7 @@ class MenuDeAccionesWindow extends SimpleWindow<CarmenSandiegoAppModel> {
 			]
 			new Label (panelDelFormulario)=>[
 				text = "¿Qué haremos ahora Detective?"
-				//foreground = Color.BLUE // veremos mas adelante cuando afinemos detalles
+				//foreground = Color.BLUE
 			]
 		}
 		
@@ -42,32 +45,33 @@ class MenuDeAccionesWindow extends SimpleWindow<CarmenSandiegoAppModel> {
 		override protected addActions(Panel actionsPanel) {
 			new Button (actionsPanel)=>[
 				caption = "Resolver Misterio"
-				onClick ([|iniciarJuego]) // con que comportamiento del detective bindeamos este boton??
+				onClick ([|iniciarJuego(modelObject.getAcme)])
 			]
 			new Button (actionsPanel)=>[
 				caption = "Mapamundi"
-				onClick ([|mapamundi]) // con que comportamiento del detective bindeamos este boton??
+				onClick ([|mapamundi(modelObject.getMapamundi)])
 			]
 			new Button (actionsPanel)=>[
 				caption = "Expedientes"
-				onClick ([|expediente]) // con que comportamiento del detective bindeamos este boton??
+				onClick ([|expediente(modelObject.getAcme.getVillanos)])
 			]
 			
 		}
 	
-	def iniciarJuego() 
+	def iniciarJuego(ACME acme) 
 	{
-		new InicioDelJuegoWindow(this, new Caso).open
+		val resolviendoMisterio = new ResolverMisterioAppModel (modelObject.acme, modelObject.mapamundi)
+		new InicioDelJuegoWindow(this, resolviendoMisterio).open
 	}
 	
-	def mapamundi() 
+	def mapamundi(Mapamundi mapa) 
 	{
-		new MapamundiWindow(this).open
+		new MapamundiWindow(this,mapa).open
 	}
 	
-	def expediente() 
+	def expediente(Expediente villanos) 
 	{
-		new ExpedienteMenuDeAccionesView(this).open
+		new ExpedienteMenuDeAccionesView(this, villanos).open
 	}
 	
 		

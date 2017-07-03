@@ -16,10 +16,11 @@ class LugarInteresAppModel
 	
 	new(){}
 	
-	new(LugarDeInteres lugar, Caso caso)
+	new(LugarDeInteres lugar, Caso caso, Detective doc)
 	{
 		this.lugar = lugar
 		this.caso = caso
+		this.detective = doc
 	}
 	
 	def nombreDelCaso()
@@ -34,7 +35,7 @@ class LugarInteresAppModel
 	
 	def preguntarAlOcupante()
 	{
-		//lugar.responderAlDetective(detective.ubicacionActual)
+		caso.mostrarPista(detective.ubicacionActual, lugar)
 	}
 
 	def ordenDeArresto()
@@ -42,10 +43,16 @@ class LugarInteresAppModel
 		detective.ordenDeArresto
 	}
 	
+	// Pregunta si encontre al villano
 	def esElFinDelJuego() 
 	{
-		// Implementarlo bien
-		//caso.esElFinDelCaso(detective.ubicacionActual) && lugar.seEncuentraElVillano()
+		caso.esElFinDelCaso(detective)
+	}
+	
+	// Pregunta si el villano que encontre es al que le mande la orden de arresto (si gane o perdi el juego)
+	def estaResuelto() 
+	{
+		caso.estaResuelto(detective)
 	}
 	
 	

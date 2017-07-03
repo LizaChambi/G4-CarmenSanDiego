@@ -26,16 +26,8 @@ class LugaresWindow extends Dialog<LugarInteresAppModel>{
 			text = "Estas visitando: " + modelObject.nombreDelLugar
 		]
 		
-//		val hor = new Panel(form) => [
-//			layout = new ColumnLayout(1)
-//		]
-		
 		new Label(form) => [
-			//text = modelObject.preguntarAlOcupante
-			text = "El juego termina cuando llegamos al lugar que 
-tiene al delicuente (luego de haber dado la orden de alto).
-Cuando esto pasa al continuar nos informan los resultados, 
-que pueden ser buenas o malas noticias:"
+			text = modelObject.preguntarAlOcupante
 			//width = 200
 		]
 	}
@@ -50,16 +42,15 @@ que pueden ser buenas o malas noticias:"
 	def validacionParaContinuar() 
 	{
 		if (modelObject.esElFinDelJuego)
-			abrirResultadoDelJuego()
-			
+			abrirResultadoDelJuego()	
 		this.close()
 	}
 	
 	def abrirResultadoDelJuego() 
 	{
-		//if ()
-			new FinDelJuegoWindow(this, modelObject).open
-		// if()
+		if (modelObject.estaResuelto())
+			//new FinDelJuegoWindow(this, modelObject).open
+		this.close()
 	}
 	
 }

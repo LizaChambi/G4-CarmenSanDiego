@@ -11,7 +11,7 @@ import java.util.Random
 
 @Accessors
 @TransactionalAndObservable
-class Pais extends Entity implements Cloneable {
+class Pais {
 	
 	public String nombrePais
 	List<Caracteristicas> caracteristicaPais
@@ -48,6 +48,8 @@ class Pais extends Entity implements Cloneable {
 	def void setNombreLugares(List<LugarDeInteres> plugares) {}
 	
 	def void setNombreCaracteristica(List<Caracteristicas> pfeature) {}
+	
+
 	
 	def tieneConexionAereaCon(Pais pais) {
 		paisesConexionAerea.exists[p | p.nombrePais == pais.nombrePais]
@@ -117,8 +119,13 @@ class Pais extends Entity implements Cloneable {
 		
 	}
 	
-	def eliminarCaracteristicaSelecionada(String feature) {
-		caracteristicaPais.remove(feature)
+	def agregarCaracteristica(Caracteristicas caracteristica) {
+		caracteristicaPais.add(caracteristica)
+	}
+	
+	def eliminarCaracteristica(Caracteristicas caracteristica) {
+		caracteristicaPais = caracteristicaPais.filter[c | c.nombre != caracteristica.nombre].toList
+		//caracteristicaPais.remove(caracteristica)
 	}
 	
 	/**
@@ -150,7 +157,7 @@ class Pais extends Entity implements Cloneable {
 		
 		var Integer caracteristica2 = rnd.nextInt(pistasRestantes.size)
 		val pista2 = pistasRestantes.get(caracteristica2)
-		pista1.nombre + " "+ pista2.nombre + "."
+		pista1.nombre + " " + pista2.nombre
 	}
 	
 	def void cambiarEstado(List<Pais> ps, Villano v) // este funciona realmente
@@ -214,6 +221,8 @@ class Pais extends Entity implements Cloneable {
 		
 		var pistas = venezuela.pistas(hard)
 		
+		//belgica.cambiarEstado(hard)
+		//argentina.cambiarEstado(hard)
 		
 		println("----------------------------------------")
 		
@@ -231,6 +240,46 @@ class Pais extends Entity implements Cloneable {
 		println(pistas.get(1))
 		println(pistas.get(2))
 		
+	}
+	
+	def eliminarLugarDeInteres(LugarDeInteres interes) 
+	{
+		lugares = lugares.filter[l | l.nombre != interes.nombre].toList
+	}
+	
+	def eliminarConexionAerea(Pais pais) 
+	{
+		paisesConexionAerea = paisesConexionAerea.filter[p | p.nombrePais != pais.nombrePais].toList
+	}
+	
+	def lugarDeInteres1 ()
+	{
+		lugares.get(0)
+	}
+	
+	def lugarDeInteres2 ()
+	{
+		lugares.get(1)
+	}
+	
+	def lugarDeInteres3 ()
+	{
+		lugares.get(2)
+	}
+	
+	def nombreDelLugar1() 
+	{
+		lugarDeInteres1.nombre
+	}
+	
+	def nombreDelLugar2()
+	{
+		lugarDeInteres2.nombre
+	}
+	
+	def nombreDelLugar3()
+	{
+		lugarDeInteres3.nombre
 	}
 	
 }

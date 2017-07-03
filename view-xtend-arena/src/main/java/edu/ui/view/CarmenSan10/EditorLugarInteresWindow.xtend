@@ -11,10 +11,14 @@ import org.uqbar.arena.widgets.Button
 
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 import org.uqbar.arena.widgets.tables.Column
+import edu.ui.domain.AppModel.PaisAppModel
+import org.uqbar.arena.widgets.Selector
+import edu.ui.domain.CarmenSan10.LugarDeInteres
+import org.uqbar.arena.bindings.ObservableProperty
 
 class EditorLugarInteresWindow extends EditorSuperConexion {
 	
-	new(WindowOwner owner, Pais model) {
+	new(WindowOwner owner, PaisAppModel model) {
 		super(owner, model)
 	}
 	
@@ -37,17 +41,21 @@ class EditorLugarInteresWindow extends EditorSuperConexion {
 		
 		new Button(general) => [
 			caption = "Eliminar"
-			//onClick([| modelObject.eliminarCaracteristicaSelecionada])
+			onClick([| modelObject.eliminarLugarSelecionado])
 		]
 		
 		val editHor = new Panel(general) =>[
 			layout = new HorizontalLayout
 		]
 		
-		new TextBox(editHor) => [
-			width = 150
-			//value <=> "itemSeleccionado.nombre"
+		
+		new Selector<LugarDeInteres>(editHor) => [
+			allowNull(false)
+			value <=> "lugarSeleccionado"
+			val propiedadModelos = bindItems(new ObservableProperty(modelObject, "lugaresPosibles"))
+			propiedadModelos.adaptWith(typeof(LugarDeInteres), "nombre")
 		]
+		
 		
 		new Button(editHor) => [
 			caption = "Agregar"

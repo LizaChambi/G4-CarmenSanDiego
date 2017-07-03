@@ -17,7 +17,8 @@ class Detective
 	private var List<Pais> recorrido
 	private var String ordenDeArresto
 	List<LugarDeInteres> lugaresVisitados // puede que no lo necesite.
-	// lugaresVisitados es para saber si el ultimo lugar que visite esta el villano (sirve para terminar el juego)
+	// lugaresVisitados estaba pensado para que pueda consultar la pista correspondiente al ultimo lugar que estoy visitando...
+	// pero es mejro esperar a que me lo pasen por aprametro que tenerlo guardado.
 	
 	/**
 	 * @Propósito: Crea un Detective.
@@ -169,6 +170,7 @@ class Detective
 		caso.mostrarPista(ubicacionActual, lugar)
 	}
 	
+	// recorridodDelCriminal
 	def paisesVisitados(List<Pais> pais) 
 	{	
 		val visitados = new ArrayList<Pais>()
@@ -186,6 +188,14 @@ class Detective
 		visitados.filter[p | p.estaDentroDelRecorrido(pais)].toList
 	}
 	
+	// esto debe estar aca o en el modelObject?
+	def recorridoCriminal(List<Pais> pais)
+	{
+		val nombresDeLosPaises = paisesVisitados(pais)
+		
+		nombresDeLosPaises.map[p | p.nombrePais].toList
+	}
+	
 	def agregarSiPuede(ArrayList<Pais> paises, Pais pais) 
 	{
 		if (! paises.contains(pais))
@@ -193,5 +203,6 @@ class Detective
 			paises.add(pais)
 		}	
 	}
+	
 	
 }

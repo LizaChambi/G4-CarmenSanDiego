@@ -11,11 +11,12 @@ import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 import org.uqbar.arena.windows.SimpleWindow
 import edu.ui.domain.AppModel.ExpedienteAppModel
 import org.uqbar.arena.layout.HorizontalLayout
+import edu.ui.domain.CarmenSan10.Expediente
 
 class ExpedienteMenuDeAccionesView extends SimpleWindow<ExpedienteAppModel> {
 	
-	new(WindowOwner parent) {
-		super(parent, new ExpedienteAppModel)
+	new(WindowOwner parent, Expediente exp) {
+		super(parent, new ExpedienteAppModel(exp))
 		title = defaultTitle
 	}
 	

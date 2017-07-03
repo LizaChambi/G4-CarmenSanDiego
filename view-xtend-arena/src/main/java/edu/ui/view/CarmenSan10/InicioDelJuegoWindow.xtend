@@ -11,10 +11,11 @@ import edu.ui.domain.CarmenSan10.ACME
 import org.uqbar.arena.layout.VerticalLayout
 import org.uqbar.arena.layout.ColumnLayout
 import edu.ui.domain.AppModel.ResolverMisterioAppModel
+import org.uqbar.commons.model.IModel
 
-class InicioDelJuegoWindow extends SimpleWindow<Caso> 
+class InicioDelJuegoWindow extends SimpleWindow<ResolverMisterioAppModel> 
 {
-	new(WindowOwner parent, Caso model) 
+	new(WindowOwner parent, ResolverMisterioAppModel model) 
 	{
 		super(parent, model)
 		
@@ -22,15 +23,13 @@ class InicioDelJuegoWindow extends SimpleWindow<Caso>
 	
 	override createFormPanel(Panel mainPanel) 
 	{
-		title = "Robo del Faraón"
-		// title = model.objetoDelRobo
+		title = modelObject.nombreDelCaso
 		val panelDelCaso = new Panel(mainPanel)
 		panelDelCaso.layout = new VerticalLayout()
 		new Label(panelDelCaso).text = "Detective, tenemos un caso para usted!"
 		val detalleDelCaso = new Panel(panelDelCaso)
 		detalleDelCaso.layout = new VerticalLayout
-		//new Label(detalleDelCaso).text = modelObject.reporteDelActoCriminal
-		new Label(detalleDelCaso).text = "A las 9 de la mañana en la ciudad del Cairo la comunidad científica fue conmovida al darse cuenta del bla bla bla"
+		new Label(detalleDelCaso).text = modelObject.reporteDelActoCriminal
 	}
 	
 	override addActions(Panel actionsPanel) 
@@ -43,8 +42,6 @@ class InicioDelJuegoWindow extends SimpleWindow<Caso>
 	
 	def resolverMisterio() 
 	{
-		//val caso = modelObject.caso
-		//new DialogWindow(this, new Detective).open
-		new ResolviendoMisterioWindow(this, new ResolverMisterioAppModel()).open
+		new ResolviendoMisterioWindow(this, modelObject).open
 	}
 }

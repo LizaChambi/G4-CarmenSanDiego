@@ -9,7 +9,8 @@ class EditarCaracteristicas extends EditorSuperConexion {
 		super(owner, new Pais)
 	}
 	
-	override defaultTitle() {
+	override defaultTitle() 
+	{
 		"Editar Característica"
 	}
 	
