@@ -128,7 +128,7 @@ class Villano extends Ocupante {
 	override responderAlDetective(Caso caso, LugarDeInteres unLugar, Pais paisActual)
 	{
 		if (seEncuentraElVillanoEnElLugar(caso, unLugar))
-			"ALTO!! Detengase"
+			"ALTO!! Detengase " + nombre
 		else
 			"CUIDADO DETECTIVE!! Ah estado a punto de caer en una trampa... La persona que busca está en la ciudad"
 		

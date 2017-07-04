@@ -155,7 +155,7 @@ class Detective
 		recorrido.filter[pais | pais.estaFueraDelRecorrido(recorridoDelVillano) ].toList
 	}
 	
-	def ultimoLugarVisitado() // puede que no lo necesite
+	def ultimoLugarVisitado()
 	{
 		lugaresVisitados.last
 	}
@@ -167,6 +167,7 @@ class Detective
 	
 	def pedirPista(Caso caso, LugarDeInteres lugar)
 	{
+		lugaresVisitados.add(lugar)
 		caso.mostrarPista(ubicacionActual, lugar)
 	}
 	

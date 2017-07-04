@@ -16,6 +16,7 @@ class LugarInteresAppModel
 	String tituloDelResultado
 	String estadoFinalDelCaso
 	String resumenFinal
+	String estadoBoton
 	
 	new(){}
 	
@@ -27,6 +28,7 @@ class LugarInteresAppModel
 		tituloDelResultado = ""
 		estadoFinalDelCaso = ""
 		resumenFinal = ""
+		estadoBoton = ""
 	}
 	
 	def nombreDelCaso()
@@ -41,7 +43,7 @@ class LugarInteresAppModel
 	
 	def preguntarAlOcupante()
 	{
-		caso.mostrarPista(detective.ubicacionActual, lugar)
+		detective.pedirPista(caso, lugar)
 	}
 
 	def ordenDeArresto()
@@ -66,13 +68,15 @@ class LugarInteresAppModel
 		tituloDelResultado = "En hora buena!!!"
 		estadoFinalDelCaso = "Ha detenido a " + caso.responsable.nombre + " y recuperado la Tumba del Faraon"
 		resumenFinal = "Felicitaciones!!!!"
+		estadoBoton = "Disfrutar de nuestra victoria"
 	}
 	
 	def casoImpune() 
 	{
 		tituloDelResultado = "Malas noticias :("
-		estadoFinalDelCaso = "Ha detenido a " + detective.ordenDeArresto + ", pero usted tenia una orden contra" + caso.responsable.nombre
+		estadoFinalDelCaso = "Ha detenido a " +  caso.responsable.nombre + ", pero usted tenia una orden contra" + detective.ordenDeArresto
 		resumenFinal = "Lamentablemente este crimen quedará impune."
+		estadoBoton = "Aceptar el error cometido"
 	}
 	
 	

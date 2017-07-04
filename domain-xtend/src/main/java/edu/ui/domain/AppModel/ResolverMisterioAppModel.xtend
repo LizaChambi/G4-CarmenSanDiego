@@ -103,7 +103,6 @@ class ResolverMisterioAppModel
 	def getNombrePaisActual()
 	{
 		nombrePaisActual
-		
 	}
 	
 	def setNombrePaisActual(Pais pais)
@@ -160,11 +159,11 @@ class ResolverMisterioAppModel
 		
 		lugar1 = detective.ubicacionActual.lugarDeInteres1 
 		lugar2 = detective.ubicacionActual.lugarDeInteres2 
-		lugar3 = detective.ubicacionActual.lugarDeInteres3 
-//		ObservableUtils.firePropertyChanged(this, "nombrePaisActual", nombrePaisActual)
-//		ObservableUtils.firePropertyChanged(this, "lugar1", lugar1)
-//		ObservableUtils.firePropertyChanged(this, "lugar2", lugar2)
-//		ObservableUtils.firePropertyChanged(this, "lugar3", lugar3)
+		lugar3 = detective.ubicacionActual.lugarDeInteres3
+		
+		ObservableUtils.firePropertyChanged(this, "lugar1", lugar1)
+		ObservableUtils.firePropertyChanged(this, "lugar2", lugar2)
+		ObservableUtils.firePropertyChanged(this, "lugar3", lugar3)
 	}
 	
 	def recorridoCriminal()

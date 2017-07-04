@@ -7,6 +7,7 @@ import org.uqbar.arena.widgets.Panel
 import edu.ui.domain.AppModel.LugarInteresAppModel
 import org.uqbar.arena.widgets.Label
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
+import org.uqbar.arena.widgets.Button
 
 class FinDelJuegoWindow extends Dialog<LugarInteresAppModel>{
 	
@@ -28,6 +29,11 @@ class FinDelJuegoWindow extends Dialog<LugarInteresAppModel>{
 		new Label(mainPanel) => [
 						value <=> "resumenFinal"
 					]
+		
+		new Button(mainPanel) => [
+						caption = modelObject.estadoBoton
+						onClick ([|this.close()])
+					]	
 	}
 	
 }

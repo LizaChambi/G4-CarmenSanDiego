@@ -42,7 +42,9 @@ class LugaresWindow extends Dialog<LugarInteresAppModel>{
 	def validacionParaContinuar() 
 	{
 		if (modelObject.esElFinDelJuego)
-			abrirResultadoDelJuego()	
+		{
+			abrirResultadoDelJuego()
+		}
 		this.close()
 	}
 	
