@@ -11,6 +11,7 @@ import java.util.List
 import java.util.ArrayList
 import edu.ui.domain.Exceptions.FaltaAgregarLugaresException
 import edu.ui.domain.Exceptions.FaltaAgregarCaracteristicasException
+import edu.ui.domain.Exceptions.ElLugarYaFueAgregadoException
 
 @Accessors
 @TransactionalAndObservable

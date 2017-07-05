@@ -9,6 +9,7 @@ import org.uqbar.commons.model.Entity
 import org.uqbar.commons.model.UserException
 import java.util.Random
 import edu.ui.domain.Exceptions.NoSePuedeAgregarMasLugaresException
+import edu.ui.domain.Exceptions.ElLugarYaFueAgregadoException
 
 @Accessors
 @TransactionalAndObservable
@@ -222,12 +223,17 @@ class Pais {
 	{
 		if (lugares.size == 3)
 		{
-			throw new NoSePuedeAgregarMasLugaresException("Un pais no puede tener más de 3 lugares de interes")
+			throw new NoSePuedeAgregarMasLugaresException("Un pais no puede tener más de 3 lugares de interes.")
 		}
 		else
 		{
 			lugares.add(lugar)
 		}
+	}
+	
+	def elLugarYaFueAgregado(LugarDeInteres interes) 
+	{
+		lugares.exists[l | l.nombre == interes.nombre]
 	}
 	
 }

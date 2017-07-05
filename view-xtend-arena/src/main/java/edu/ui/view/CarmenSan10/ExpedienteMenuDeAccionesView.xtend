@@ -38,7 +38,7 @@ class ExpedienteMenuDeAccionesView extends SimpleWindow<ExpedienteAppModel> {
 		val panelIzquierdo = new Panel(general)
 		
 			var table = new Table<Villano>(panelIzquierdo, typeof(Villano)) => [
-				height = 200
+				height = 600
 				width = 450
 				bindItemsToProperty("expediente.villanos")
 				bindValueToProperty("villanoSeleccionado")

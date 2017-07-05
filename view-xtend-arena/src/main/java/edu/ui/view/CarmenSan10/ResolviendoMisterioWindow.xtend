@@ -16,6 +16,7 @@ import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
 
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
+import edu.ui.domain.CarmenSan10.LugarDeInteres
 
 class ResolviendoMisterioWindow extends SimpleWindow<ResolverMisterioAppModel>
 {
@@ -52,6 +53,7 @@ class ResolviendoMisterioWindow extends SimpleWindow<ResolverMisterioAppModel>
 						onClick ([|abrirOrdenDeArresto])
 					]
 					
+					// Estado de la orden de arresto
 					val estadoDeLaOrden = new Panel(it) => [
 						layout = new ColumnLayout(2)
 						
@@ -69,7 +71,6 @@ class ResolviendoMisterioWindow extends SimpleWindow<ResolverMisterioAppModel>
 					new Button(it) => [
 						caption = "Viajar"
 						onClick ([|abrirViajarAPais])
-						// Al viajar debe deshabilitarse los botones en caso de poder viajar o no.
 					]
 				
 					new Button(it) => [
@@ -84,58 +85,53 @@ class ResolviendoMisterioWindow extends SimpleWindow<ResolverMisterioAppModel>
 					
 					new Button(it) => [
 						caption = modelObject.lugar1.nombre
-						onClick ([|abrir1erLugarDeInteres])
+						onClick ([|abrirLugarDeInteres(modelObject.lugar1)])
 					]
 					
 					new Button(it) => [
 						caption = modelObject.lugar2.nombre
-						onClick ([|abrir2erLugarDeInteres])
+						onClick ([|abrirLugarDeInteres(modelObject.lugar2)])
 					]
 					
 					new Button(it) => [
 						caption = modelObject.lugar3.nombre
-						onClick ([|abrir3erLugarDeInteres])
+						onClick ([|abrirLugarDeInteres(modelObject.lugar3)])
 					]		
 				]
 			]
 			
+			// Historial de los viajes realizados
 			val estado = new Panel(mainPanel) => [
 				layout = new VerticalLayout
 			
 				new Label(it).text = "Recorrido criminal:"
 				
 				new Label(it) => [
-						value <=> "paisesAcertados"
-					]	
-						
+					value <=> "paisesAcertados"
+				]	
 				
 				new Label(it).text = "Destinos fallidos:"
 				
 				// mejor pasarlo a tabla si se puede
 				new List<Pais> (mainPanel) => [
 					bindItemsToProperty("paisesFallidos").adapter = new PropertyAdapter(Pais, "nombrePais")
-				]
-				
+				]	
 			]
 		]
-		
 	}
+//
+//	def botonDePedirPista(Panel p, LugarDeInteres lugar)
+//	{
+//		new Button(p) => [
+//						caption = lugar.nombre
+//						onClick ([|abrirLugarDeInteres(lugar)])
+//					]	
+//	}
 	
-	def abrir3erLugarDeInteres() 
+
+	def abrirLugarDeInteres(LugarDeInteres lugar) 
 	{
-		val model = new LugarInteresAppModel(modelObject.lugar3, modelObject.caso, modelObject.detective)
-		new LugaresWindow(this, model).open
-	}
-	
-	def abrir2erLugarDeInteres() 
-	{
-		val model = new LugarInteresAppModel(modelObject.lugar2, modelObject.caso, modelObject.detective)
-		new LugaresWindow(this, model).open
-	}
-	
-	protected def void abrir1erLugarDeInteres() 
-	{
-		val model = new LugarInteresAppModel(modelObject.lugar1, modelObject.caso, modelObject.detective)
+		val model = new LugarInteresAppModel(lugar, modelObject.caso, modelObject.detective)
 		new LugaresWindow(this, model).open
 	}
 	

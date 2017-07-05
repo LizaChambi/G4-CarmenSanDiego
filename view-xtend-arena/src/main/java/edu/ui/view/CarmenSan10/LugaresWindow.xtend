@@ -8,6 +8,7 @@ import org.uqbar.arena.widgets.Label
 import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.windows.Dialog
 import edu.ui.domain.AppModel.LugarInteresAppModel
+import java.awt.Color
 
 class LugaresWindow extends Dialog<LugarInteresAppModel>{
 	
@@ -20,15 +21,12 @@ class LugaresWindow extends Dialog<LugarInteresAppModel>{
 		
 		val form = new Panel(mainPanel)//.layout = new VerticalLayout
 		
-		form.width = 200
-		
 		new Label(form) =>[
 			text = "Estas visitando: " + modelObject.nombreDelLugar
 		]
 		
 		new Label(form) => [
 			text = modelObject.preguntarAlOcupante
-			//width = 200
 		]
 	}
 	
@@ -53,12 +51,12 @@ class LugaresWindow extends Dialog<LugarInteresAppModel>{
 		if (modelObject.estaResuelto())
 		{
 			modelObject.casoResulto()
-			new FinDelJuegoWindow(this, modelObject).open
+			new FinDelJuegoWindow(this, modelObject, Color.GREEN).open
 		}
 		else
 		{
 			modelObject.casoImpune()
-			new FinDelJuegoWindow(this, modelObject).open
+			new FinDelJuegoWindow(this, modelObject, Color.RED).open
 		}
 	}
 	

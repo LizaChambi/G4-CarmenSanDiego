@@ -27,21 +27,21 @@ class CarmenSan10Dummy
 		 */	
 		mapamundi = new Mapamundi
 		
-		// diff entre val y var?
+		
 		val venezuela = new Pais("Venezuela", #[LugarDeInteres.EMBAJADA, LugarDeInteres.BIBLIOTECA, LugarDeInteres.CLUB], new ArrayList<Pais>())
-		venezuela.caracteristicaPais = #[new Caracteristicas("Maduro a la cabeza"), new Caracteristicas("Su lider cosmico supremo habla con los pajaritos")]
+		venezuela.caracteristicaPais = #[new Caracteristicas("Maduro a la cabeza."), new Caracteristicas("Su lider cosmico supremo habla con pajaritos.")]
 		
 		
 		val brazil = new Pais("Brazil", #[LugarDeInteres.EMBAJADA, LugarDeInteres.BANCO, LugarDeInteres.CLUB], #[venezuela]) => [
-			caracteristicaPais = #[new Caracteristicas("Se habla portugues"), new Caracteristicas("Su bandera es verde y amarilla")]
+			caracteristicaPais = #[new Caracteristicas("Se habla portugues."), new Caracteristicas("Su bandera es verde y amarilla.")]
 		]
 		
 		val uruguay = new Pais("Uruguay", #[LugarDeInteres.BANCO, LugarDeInteres.BIBLIOTECA, LugarDeInteres.CLUB], #[venezuela, brazil]) => [
-			caracteristicaPais = #[new Caracteristicas("A toda hora mate"), new Caracteristicas("Es una una provincia de Argentina")]
+			caracteristicaPais = #[new Caracteristicas("A toda hora mate."), new Caracteristicas("Es una una provincia de Argentina.")]
 		]
 		
 		val argentina = new Pais("Argentina", #[LugarDeInteres.EMBAJADA, LugarDeInteres.BIBLIOTECA, LugarDeInteres.BANCO], #[venezuela, brazil, uruguay]) => [
-			caracteristicaPais = #[new Caracteristicas("Bandera azul y blanca"), new Caracteristicas("Su arbol nacional es el Ceibo")]
+			caracteristicaPais = #[new Caracteristicas("Bandera azul y blanca."), new Caracteristicas("Su arbol nacional es el Ceibo.")]
 		]
 		
 		mapamundi.setPaisMini(venezuela) // id = 1
@@ -55,13 +55,13 @@ class CarmenSan10Dummy
 		 */
 		
 		val seniasParticularesCS = new ArrayList<Caracteristicas>()
-		val seniaCS1 = new Caracteristicas("Pelo rojo")
-		val seniaCS2 = new Caracteristicas("Maneja un convertible")
+		val seniaCS1 = new Caracteristicas("Tiene el pelo rojo.")
+		val seniaCS2 = new Caracteristicas("Maneja un convertible.")
 		seniasParticularesCS.add(seniaCS1)
 		seniasParticularesCS.add(seniaCS2)
 		
 		val hobbiesCS = new ArrayList<Caracteristicas>()
-		val hobbieCS = new Caracteristicas("Juega tenis")
+		val hobbieCS = new Caracteristicas("Juega tenis.")
 		hobbiesCS.add(hobbieCS)
 		
 		//val villanoCS = new Villano("Carmen Sandiego", "Femenino", seniasParticularesCS, hobbiesCS)
@@ -74,13 +74,13 @@ class CarmenSan10Dummy
 		]
 		
 		val seniasParticularesII = new ArrayList<Caracteristicas>()
-		val seniaII1 = new Caracteristicas("Pelo rubio")
-		val seniaII2 = new Caracteristicas("Maneja un descapotable")
+		val seniaII1 = new Caracteristicas("Tiene el pelo rubio.")
+		val seniaII2 = new Caracteristicas("Maneja un descapotable.")
 		seniasParticularesII.add(seniaII1)
 		seniasParticularesII.add(seniaII2)
 		
 		val hobbiesII = new ArrayList<Caracteristicas>()
-		val hobbieII = new Caracteristicas("Juega al futbol")
+		val hobbieII = new Caracteristicas("Juega al futbol.")
 		hobbiesII.add(hobbieII)
 		
 		val villanoII = new Villano("Ivan Igorovich", "Masculino", seniasParticularesII, hobbiesII)

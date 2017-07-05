@@ -20,11 +20,16 @@ class InicioDelJuegoWindow extends SimpleWindow<ResolverMisterioAppModel>
 	{
 		title = modelObject.nombreDelCaso
 		val panelDelCaso = new Panel(mainPanel)
-		panelDelCaso.layout = new VerticalLayout()
+		
+		//panelDelCaso.layout = new VerticalLayout()
+		
 		new Label(panelDelCaso).text = "Detective, tenemos un caso para usted!"
 		val detalleDelCaso = new Panel(panelDelCaso)
+		
 		detalleDelCaso.layout = new VerticalLayout
+		
 		new Label(detalleDelCaso).text = modelObject.reporteDelActoCriminal
+		
 	}
 	
 	override addActions(Panel actionsPanel) 

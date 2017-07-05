@@ -67,14 +67,14 @@ class ResolverMisterioAppModel
 		var resultado = ""
 		if (paises.size>=1)
 		{
-			resultado = paises.get(0)
+			resultado = paises.get(0).toUpperCase
 		}
 		
 		val paisesRes = paises.tail.toList
 		
 		for(p : paisesRes)
 		{
-			resultado = p + "<-" + resultado
+			resultado = p.toUpperCase + "<-" + resultado
 		}
 		
 		resultado
