@@ -7,12 +7,12 @@ import org.uqbar.arena.widgets.Label
 import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.layout.HorizontalLayout
 import edu.ui.domain.CarmenSan10.Mapamundi
-import edu.ui.domain.CarmenSan10.Caso
 import edu.ui.domain.AppModel.CarmenSandiegoAppModel
 import edu.ui.domain.CarmenSan10.ACME
 import edu.ui.domain.Dummy.CarmenSan10Dummy
 import edu.ui.domain.CarmenSan10.Expediente
 import edu.ui.domain.AppModel.ResolverMisterioAppModel
+import edu.ui.domain.AppModel.ExpedienteAppModel
 
 class MenuDeAccionesWindow extends SimpleWindow<CarmenSandiegoAppModel> {
 	/*
@@ -60,7 +60,7 @@ class MenuDeAccionesWindow extends SimpleWindow<CarmenSandiegoAppModel> {
 	
 	def iniciarJuego(ACME acme) 
 	{
-		val resolviendoMisterio = new ResolverMisterioAppModel (modelObject.acme, modelObject.mapamundi)
+		val resolviendoMisterio = new ResolverMisterioAppModel (modelObject.acme)
 		new InicioDelJuegoWindow(this, resolviendoMisterio).open
 		this.close()
 	}
@@ -72,7 +72,8 @@ class MenuDeAccionesWindow extends SimpleWindow<CarmenSandiegoAppModel> {
 	
 	def expediente(Expediente villanos) 
 	{
-		new ExpedienteMenuDeAccionesView(this, villanos).open
+		val model = new ExpedienteAppModel(modelObject.acme.villanos)
+		new ExpedienteMenuDeAccionesView(this, model).open
 	}
 	
 		

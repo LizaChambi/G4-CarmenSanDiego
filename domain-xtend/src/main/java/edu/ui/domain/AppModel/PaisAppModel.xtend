@@ -1,9 +1,7 @@
 package edu.ui.domain.AppModel
 
 import edu.ui.domain.CarmenSan10.Pais
-import java.io.Serializable
 import org.eclipse.xtend.lib.annotations.Accessors
-import org.uqbar.commons.utils.Observable
 import edu.ui.domain.CarmenSan10.LugarDeInteres
 import edu.ui.domain.CarmenSan10.Caracteristicas
 import org.uqbar.commons.model.ObservableUtils
@@ -11,38 +9,36 @@ import org.uqbar.commons.utils.TransactionalAndObservable
 import edu.ui.domain.CarmenSan10.Mapamundi
 import java.util.List
 import java.util.ArrayList
+import edu.ui.domain.Exceptions.FaltaAgregarLugaresException
+import edu.ui.domain.Exceptions.FaltaAgregarCaracteristicasException
 
 @Accessors
 @TransactionalAndObservable
-class PaisAppModel{
-	List<Pais> paises
-	List<LugarDeInteres> lugaresPosibles
+class PaisAppModel
+{
 	Pais pais
+	
+	List<Pais> paises
+	
+	List<LugarDeInteres> lugaresPosibles
+	
 	Caracteristicas carSeleccionada
-	LugarDeInteres lugarSeleccionado
-	Pais paisDeConexSeleccionado
 	String textCaracteristica
+	LugarDeInteres lugarSeleccionado
+	LugarDeInteres lugarNuevoSeleccionado
+	Pais paisDeConexSeleccionado
+	Pais paisDeConexNuevoSeleccionado
 	
-	/**
-	 * String nombrePais
-	 * List<String> caracteristicaPais	
-	 * List<LugarInteres> lugares	
-	 * List<Pais> paisesConexionAerea
-	 */
-	
-	new(Pais pais) {
+	new(Mapamundi mapa, Pais pais) {
 		this.pais = pais
+		this.paises = mapa.paises
+		
 		// Cargo los lugares con las que cuento para el selector
 		lugaresPosibles = new ArrayList<LugarDeInteres> ()
 		lugaresPosibles.add(LugarDeInteres.BANCO)
 		lugaresPosibles.add(LugarDeInteres.BIBLIOTECA) 
 		lugaresPosibles.add(LugarDeInteres.CLUB) 
 		lugaresPosibles.add(LugarDeInteres.EMBAJADA)
-	}
-	
-	new(List<Pais> ps, Pais pais) {
-		this.pais = pais
-		this.paises = ps
 	}
 	
 	def eliminarCaracteristicaSelecionada() 
@@ -66,11 +62,33 @@ class PaisAppModel{
 		ObservableUtils.firePropertyChanged(this,"lugares", pais)
 	}
 	
-	def getEliminarConexionSelecionada() 
+	def eliminarConexionSelecionada() 
 	{
 		pais.eliminarConexionAerea(paisDeConexSeleccionado)
 		paisDeConexSeleccionado = null
 		ObservableUtils.firePropertyChanged(this,"paisesConexionAerea", pais)
+	}
+	
+	def agregarConexionAerea() 
+	{
+		pais.agregarConexionSiPuede(paisDeConexNuevoSeleccionado)
+		paisDeConexNuevoSeleccionado = null
+		ObservableUtils.firePropertyChanged(this,"paisesConexionAerea", pais)
+	}
+	
+	def agregarLugarSeleccionado() 
+	{
+		pais.agregarLugarSiPuede(lugarNuevoSeleccionado)
+		lugarNuevoSeleccionado = null
+		ObservableUtils.firePropertyChanged(this,"lugares", pais)
+	}
+	
+	def validarEdicion() 
+	{
+		if (pais.lugares.size < 3)
+			throw new FaltaAgregarLugaresException ("Un pais debe tener exactamente 3 lugares de interes.")
+		if (pais.caracteristicaPais.size < 2)
+			throw new FaltaAgregarCaracteristicasException ("Un pais debe tener al menos 2 características.")
 	}
 	
 	

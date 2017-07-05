@@ -80,7 +80,7 @@ class CarmenSan10Dummy
 		seniasParticularesII.add(seniaII2)
 		
 		val hobbiesII = new ArrayList<Caracteristicas>()
-		val hobbieII = new Caracteristicas("Juega tenis")
+		val hobbieII = new Caracteristicas("Juega al futbol")
 		hobbiesII.add(hobbieII)
 		
 		val villanoII = new Villano("Ivan Igorovich", "Masculino", seniasParticularesII, hobbiesII)

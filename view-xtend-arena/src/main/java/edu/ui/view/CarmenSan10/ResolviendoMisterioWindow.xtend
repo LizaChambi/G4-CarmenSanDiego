@@ -1,20 +1,21 @@
 package edu.ui.view.CarmenSan10
 
+import edu.ui.domain.AppModel.ExpedienteAppModel
+import edu.ui.domain.AppModel.LugarInteresAppModel
 import edu.ui.domain.AppModel.ResolverMisterioAppModel
 import edu.ui.domain.CarmenSan10.Pais
+import org.uqbar.arena.bindings.PropertyAdapter
+import org.uqbar.arena.layout.ColumnLayout
 import org.uqbar.arena.layout.HorizontalLayout
 import org.uqbar.arena.layout.VerticalLayout
 import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.widgets.Label
+import org.uqbar.arena.widgets.List
 import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
-import edu.ui.domain.AppModel.LugarInteresAppModel
-import org.uqbar.arena.bindings.PropertyAdapter
-import org.uqbar.arena.widgets.List
 
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
-import org.uqbar.arena.layout.ColumnLayout
 
 class ResolviendoMisterioWindow extends SimpleWindow<ResolverMisterioAppModel>
 {
@@ -82,17 +83,17 @@ class ResolviendoMisterioWindow extends SimpleWindow<ResolverMisterioAppModel>
 					new Label(it).text = "Lugares:"
 					
 					new Button(it) => [
-						caption = modelObject.nombreDel1erLugarInteres
+						caption = modelObject.lugar1.nombre
 						onClick ([|abrir1erLugarDeInteres])
 					]
 					
 					new Button(it) => [
-						caption = modelObject.nombreDel2doLugarInteres
+						caption = modelObject.lugar2.nombre
 						onClick ([|abrir2erLugarDeInteres])
 					]
 					
 					new Button(it) => [
-						caption = modelObject.nombreDel3erLugarInteres
+						caption = modelObject.lugar3.nombre
 						onClick ([|abrir3erLugarDeInteres])
 					]		
 				]
@@ -140,9 +141,8 @@ class ResolviendoMisterioWindow extends SimpleWindow<ResolverMisterioAppModel>
 	
 	def verExpedientes() 
 	{
-		//val model = new ExpedienteAppModel(modelObject.expediente)
-		//new ExpedientesResolverMisterioView(this, model).open
-		// Abrir el expediente que es solo de visualizacion.
+		val model = new ExpedienteAppModel(modelObject.expediente, modelObject.tituloDelCaso)
+		new ExpedientesResolverMisterioView(this, model).open
 	}
 	
 	def abrirViajarAPais() 

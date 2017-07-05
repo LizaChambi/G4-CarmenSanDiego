@@ -2,10 +2,8 @@ package edu.ui.view.CarmenSan10
 
 import edu.ui.view.CarmenSan10.EditorSuperConexion
 import org.uqbar.arena.windows.WindowOwner
-import edu.ui.domain.CarmenSan10.Pais
 import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.widgets.tables.Table
-import org.uqbar.arena.widgets.TextBox
 import org.uqbar.arena.layout.HorizontalLayout
 import org.uqbar.arena.widgets.Button
 
@@ -29,14 +27,14 @@ class EditorLugarInteresWindow extends EditorSuperConexion {
 	override protected createFormPanel(Panel mainPanel) {
 		val general = new Panel(mainPanel)
 		
-		val table = new Table<Pais>(general, typeof(Pais)) => [
-			
-			items <=> "lugares"
+		val table = new Table<LugarDeInteres>(general, typeof(LugarDeInteres)) => [
+			items <=> "pais.lugares"
+			value <=> "lugarSeleccionado"
 		]
 		
-		new Column<Pais>(table) => [
-			title = "Característica"
-			bindContentsToProperty("nombreLugares")
+		new Column<LugarDeInteres>(table) => [
+			title = "Lugares de interés"
+			bindContentsToProperty("nombre")
 		]
 		
 		new Button(general) => [
@@ -50,8 +48,8 @@ class EditorLugarInteresWindow extends EditorSuperConexion {
 		
 		
 		new Selector<LugarDeInteres>(editHor) => [
-			allowNull(false)
-			value <=> "lugarSeleccionado"
+			allowNull(true)
+			value <=> "lugarNuevoSeleccionado"
 			val propiedadModelos = bindItems(new ObservableProperty(modelObject, "lugaresPosibles"))
 			propiedadModelos.adaptWith(typeof(LugarDeInteres), "nombre")
 		]
@@ -59,7 +57,7 @@ class EditorLugarInteresWindow extends EditorSuperConexion {
 		
 		new Button(editHor) => [
 			caption = "Agregar"
-			//onClick([| this.agregar])
+			onClick([| this.modelObject.agregarLugarSeleccionado])
 		]
 		
 		new Button(general) => [

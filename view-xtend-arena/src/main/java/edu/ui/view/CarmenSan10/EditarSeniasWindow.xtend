@@ -1,48 +1,48 @@
 package edu.ui.view.CarmenSan10
 
-import edu.ui.view.CarmenSan10.EditorSuperConexion
-import org.uqbar.arena.windows.WindowOwner
+import edu.ui.domain.AppModel.VillanoAppModel
+import org.uqbar.arena.aop.windows.TransactionalDialog
 import org.uqbar.arena.widgets.Panel
+import edu.ui.domain.CarmenSan10.Caracteristicas
 import org.uqbar.arena.widgets.tables.Table
+
+import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 import org.uqbar.arena.widgets.tables.Column
 import org.uqbar.arena.widgets.Button
+import org.uqbar.arena.widgets.Selector
 import org.uqbar.arena.layout.HorizontalLayout
-import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
+import org.uqbar.arena.bindings.ObservableProperty
 import org.uqbar.arena.widgets.TextBox
-import edu.ui.domain.CarmenSan10.Caracteristicas
 import org.uqbar.arena.bindings.NotNullObservable
-import edu.ui.domain.AppModel.PaisAppModel
 
-class EditorCaracteristicaWindow extends EditorSuperConexion {
+class EditarSeniasWindow extends TransactionalDialog<VillanoAppModel>{
 	
-	new(WindowOwner owner, PaisAppModel model) {
-		super(owner, model)
+	new(EditarVillanoWindow window, VillanoAppModel model) {
+		super(window, model)
 	}
 	
-	override defaultTitle() {
-		"Editar Características"
-	}
-	
-	override protected createFormPanel(Panel mainPanel) {
+	override protected createFormPanel(Panel mainPanel) 
+	{
+		title = defaultTitle()
+		
 		val general = new Panel(mainPanel)
 		
-		val elementSelected = new NotNullObservable("carSeleccionada")
+		val elementSelected = new NotNullObservable("seniaSeleccionada")
 		
 		val table = new Table<Caracteristicas>(general, typeof(Caracteristicas)) => [
-			
-			items <=> "pais.caracteristicaPais"
-			value <=> "carSeleccionada"
+			items <=> "villano.seniasParticulares"
+			value <=> "seniaSeleccionada"
 		]
 		
 		new Column<Caracteristicas>(table) => [
-			title = "Caracteristicas"
+			title = "Seña"
 			bindContentsToProperty("nombre")
 		]
 		
 		new Button(general) => [
 			caption = "Eliminar"
+			onClick([| modelObject.eliminarSeniaSelecionada])
 			bindEnabled(elementSelected)
-			onClick([| modelObject.eliminarCaracteristicaSelecionada])
 		]
 		
 		val editHor = new Panel(general) =>[
@@ -50,19 +50,23 @@ class EditorCaracteristicaWindow extends EditorSuperConexion {
 		]
 		
 		new TextBox(editHor) => [
-			value <=> "textCaracteristica"
+			value <=> "textNuevaSenia"
 			width = 200
 		]
 		
 		new Button(editHor) => [
 			caption = "Agregar"
-			onClick([| this.modelObject.agregarCaracteristica])
+			onClick([| this.modelObject.agregarSenia])
 		]
 		
 		new Button(general) => [
 			caption = "Aceptar"
 			onClick([| this.accept])
 		]
+	}
+	
+	def defaultTitle() {
+		"Editar Señas Particulares"
 	}
 	
 }

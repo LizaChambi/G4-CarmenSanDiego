@@ -11,7 +11,6 @@ import org.uqbar.arena.widgets.tables.Table
 import edu.ui.domain.CarmenSan10.Pais
 import edu.ui.domain.AppModel.MapamundiAppModel
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
-import org.uqbar.arena.windows.Dialog
 import org.uqbar.arena.bindings.NotNullObservable
 import edu.ui.domain.CarmenSan10.Caracteristicas
 import edu.ui.domain.CarmenSan10.Mapamundi
@@ -40,18 +39,18 @@ class MapamundiWindow extends SimpleWindow<MapamundiAppModel>{
 				value <=> "itemSeleccionado"
 			]
 				
-				new Column<Pais>(table) => [
-					title = "Paises"
-					fixedSize = 150
-					bindContentsToProperty("nombrePais")
-				]
+			new Column<Pais>(table) => [
+				title = "Paises"
+				fixedSize = 150
+				bindContentsToProperty("nombrePais")
+			]
 			
-				new Button(ladoIzq) => [
-					caption = "Eliminar"
-					onClick([|modelObject.eliminarPaisSeleccionado])
-					bindEnabled(elementSelected)
-					
-				]
+			new Button(ladoIzq) => [
+				caption = "Eliminar"
+				onClick([|modelObject.eliminarPaisSeleccionado])
+				bindEnabled(elementSelected)
+				
+			]
 				
 				new Button(ladoIzq) => [
 					caption = "Editar"
@@ -127,6 +126,7 @@ class MapamundiWindow extends SimpleWindow<MapamundiAppModel>{
 	
 	def agregarNuevoPais() 
 	{
+		modelObject.itemSeleccionado = new Pais("")
 		new NuevoPaisWindow(this, modelObject).open
 	}
 	

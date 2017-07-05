@@ -10,8 +10,6 @@ import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.layout.HorizontalLayout
 import edu.ui.domain.CarmenSan10.Pais
-import org.uqbar.commons.utils.ApplicationContext
-import edu.ui.domain.Repo.RepoMapamundi
 import org.uqbar.arena.widgets.Selector
 import org.uqbar.arena.bindings.ObservableProperty
 import edu.ui.domain.AppModel.PaisAppModel
@@ -32,8 +30,8 @@ class EditorSuperConexion extends TransactionalDialog<PaisAppModel>{
 		val general = new Panel(mainPanel)
 		
 		val table = new Table<Pais>(general, typeof(Pais)) => [
-			
-			items <=> "paisesConexionAerea"
+			items <=> "pais.paisesConexionAerea"
+			value <=> "paisDeConexSeleccionado"
 		]
 		
 		new Column<Pais>(table) => [
@@ -52,20 +50,26 @@ class EditorSuperConexion extends TransactionalDialog<PaisAppModel>{
 		
 		new Selector<Pais>(editHor) => [
 			allowNull(false)
-			value <=> "paisDeConexSeleccionado"
-			val propiedadModelos = bindItems(new ObservableProperty(paisesRepo, "paises"))
+			value <=> "paisDeConexNuevoSeleccionado"
+			val propiedadModelos = bindItems(new ObservableProperty(this.modelObject, "paises"))
 			propiedadModelos.adaptWith(typeof(Pais), "nombrePais") // opción A
 		]
 		
 		new Button(editHor) => [
 			caption = "Agregar"
-			//onClick([| this.agregar])
+			onClick([| this.modelObject.agregarConexionAerea])
 		]
 		
 		new Button(general) => [
 			caption = "Aceptar"
-			onClick([| this.accept])
+			onClick([| validarEdicion()])
 		]
+	}
+	
+	def validarEdicion()
+	{
+		//modelObject.validarEdicion()
+		this.accept
 	}
 	
 }

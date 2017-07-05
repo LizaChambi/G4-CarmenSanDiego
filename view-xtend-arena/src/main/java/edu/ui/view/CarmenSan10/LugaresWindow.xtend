@@ -55,8 +55,11 @@ class LugaresWindow extends Dialog<LugarInteresAppModel>{
 			modelObject.casoResulto()
 			new FinDelJuegoWindow(this, modelObject).open
 		}
-		modelObject.casoImpune()
-		new FinDelJuegoWindow(this, modelObject).open
+		else
+		{
+			modelObject.casoImpune()
+			new FinDelJuegoWindow(this, modelObject).open
+		}
 	}
 	
 }

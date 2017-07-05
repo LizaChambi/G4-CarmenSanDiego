@@ -11,8 +11,6 @@ import org.uqbar.arena.widgets.TextBox
 import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.layout.HorizontalLayout
 import org.uqbar.arena.aop.windows.TransactionalDialog
-import edu.ui.domain.Repo.RepoMapamundi
-import org.uqbar.commons.utils.ApplicationContext
 import edu.ui.domain.AppModel.PaisAppModel
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 import edu.ui.domain.CarmenSan10.Caracteristicas
@@ -57,7 +55,6 @@ class EditarPaisWindows extends TransactionalDialog<MapamundiAppModel>{
 			
 			val table = new Table<Caracteristicas>(general, typeof(Caracteristicas)) => [
 				items <=> "itemSeleccionado.caracteristicaPais"
-				value <=> "itemSeleccionado"
 			]
 			
 				new Column<Caracteristicas>(table) => [
@@ -115,31 +112,32 @@ class EditarPaisWindows extends TransactionalDialog<MapamundiAppModel>{
 			
 				new Button(editHor) => [
 					caption = "Aceptar"
-					onClick([| this.accept])
+					onClick([| realizarCambios() ])
 					setAsDefault
 					disableOnError
 				]
 	}
 	
 	def editarConexiones() {
-		var model = new PaisAppModel(modelObject.itemSeleccionado)
+		var model = new PaisAppModel(modelObject.mapa, modelObject.itemSeleccionado)
 		new EditorSuperConexion(this, model).open
 	}
 	
 	def editarLugares() {
-		var model = new PaisAppModel(modelObject.itemSeleccionado)
+		var model = new PaisAppModel(modelObject.mapa, modelObject.itemSeleccionado)
 		new EditorLugarInteresWindow(this, model).open
 	}
 	
 	def editarCaracteristica() {
-		var model = new PaisAppModel(modelObject.itemSeleccionado)
+		var model = new PaisAppModel(modelObject.mapa, modelObject.itemSeleccionado)
 		new EditorCaracteristicaWindow(this, model).open
 	}
 
 	def realizarCambios() 
 	{
 		// Falta guardar cambios del pais seleccionado!!!!
-		this.close()
+		modelObject.validarEdicion() 
+		this.accept
 	}
 	
 }

@@ -43,7 +43,7 @@ class ResolverMisterioAppModel
 	
 	new(){}
 	
-	new(ACME acme, Mapamundi mapamundi) 
+	new(ACME acme) 
 	{
 		this.caso = acme.caso
 		this.expediente = acme.villanos
@@ -144,6 +144,24 @@ class ResolverMisterioAppModel
 		ObservableUtils.firePropertyChanged(this, "paisesAcertados", paisesAcertados)
 	}
 	
+	def setLugar1(LugarDeInteres lugar)
+	{
+		lugar1 = lugar
+		ObservableUtils.firePropertyChanged(this, "lugar1", lugar1)
+	}
+	
+	def setLugar2(LugarDeInteres lugar)
+	{
+		lugar2 = lugar
+		ObservableUtils.firePropertyChanged(this, "lugar2", lugar2)
+	}
+	
+	def setLugar3(LugarDeInteres lugar)
+	{
+		lugar3 = lugar
+		ObservableUtils.firePropertyChanged(this, "lugar3", lugar3)
+	}
+	
 	def viajar()
 	{
 		detective.viajarA(paisSeleccionado)
@@ -157,13 +175,9 @@ class ResolverMisterioAppModel
 		setPaisesFallidos (detective.destinosFallidos(caso.planDeEscape))
 		setPaisesAcertados (listar(recorridoCriminal()))
 		
-		lugar1 = detective.ubicacionActual.lugarDeInteres1 
-		lugar2 = detective.ubicacionActual.lugarDeInteres2 
-		lugar3 = detective.ubicacionActual.lugarDeInteres3
-		
-		ObservableUtils.firePropertyChanged(this, "lugar1", lugar1)
-		ObservableUtils.firePropertyChanged(this, "lugar2", lugar2)
-		ObservableUtils.firePropertyChanged(this, "lugar3", lugar3)
+		setLugar1(detective.ubicacionActual.lugarDeInteres1)
+		setLugar2(detective.ubicacionActual.lugarDeInteres2)
+		setLugar3(detective.ubicacionActual.lugarDeInteres3)
 	}
 	
 	def recorridoCriminal()
@@ -178,20 +192,6 @@ class ResolverMisterioAppModel
 		caso.reporteDelActoCriminal
 	}
 	
-	def nombreDel1erLugarInteres() 
-	{
-		lugar1.nombre
-	}
-	
-	def nombreDel2doLugarInteres() 
-	{
-		lugar2.nombre
-	}
-	
-	def nombreDel3erLugarInteres() 
-	{
-		lugar3.nombre
-	}
 	
 	def setOrdenPara(String nombre)
 	{

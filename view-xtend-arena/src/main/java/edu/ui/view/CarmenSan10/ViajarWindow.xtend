@@ -1,17 +1,13 @@
 package edu.ui.view.CarmenSan10
 
 import org.uqbar.arena.windows.SimpleWindow
-import edu.ui.domain.AppModel.MapamundiAppModel
 import org.uqbar.arena.windows.WindowOwner
 import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.widgets.Button
-import org.uqbar.arena.layout.HorizontalLayout
 
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 import org.uqbar.arena.widgets.Label
 import edu.ui.domain.AppModel.ResolverMisterioAppModel
-import org.uqbar.arena.widgets.tables.Table
-import org.uqbar.arena.widgets.tables.Column
 import edu.ui.domain.CarmenSan10.Pais
 import org.uqbar.arena.bindings.NotNullObservable
 import org.uqbar.arena.widgets.List

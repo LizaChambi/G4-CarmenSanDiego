@@ -1,8 +1,6 @@
 package edu.ui.view.CarmenSan10
 
-import edu.ui.domain.AppModel.MapamundiAppModel
 import edu.ui.domain.AppModel.ResolverMisterioAppModel
-import edu.ui.domain.CarmenSan10.Detective
 import edu.ui.domain.CarmenSan10.Villano
 import org.uqbar.arena.bindings.ObservableProperty
 import org.uqbar.arena.layout.HorizontalLayout

@@ -1,13 +1,13 @@
 package edu.ui.view.CarmenSan10
 
 import org.uqbar.arena.windows.WindowOwner
-import edu.ui.domain.CarmenSan10.Villano
+import edu.ui.domain.AppModel.ExpedienteAppModel
 
 class NuevoVillanoWindow extends EditarVillanoWindow
 {
 	
-	new(WindowOwner parent) {
-		super(parent, new Villano)
+	new(WindowOwner parent, ExpedienteAppModel model) {
+		super(parent, model)
 	}
 	
 	override def defaultTitle() 
@@ -18,6 +18,8 @@ class NuevoVillanoWindow extends EditarVillanoWindow
 	override def realizarCambios()
 	{
 		// Agregar el nuevo villano
-		this.close()
+		modelObject.validarEdicion()
+		modelObject.agregarNuevoVillano()
+		this.accept
 	}
 }
