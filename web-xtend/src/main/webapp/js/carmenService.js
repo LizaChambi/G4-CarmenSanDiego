@@ -136,14 +136,13 @@ carmenApp.service("CarmenService", function ($http) {
 	this.crearVillano = function(villanoId, villano, ctrl) {
 			// metodo donde arregla las caracteristicas
 			var villanoJson = {
-			  "id": villano.id,
 			  "nombre": villano.nombre,
 			  "sexo": villano.sexo,
 			  "seniasParticulares": this.formarCaracteristicas(villano.seniasParticulares),
 			  "hobbies": this.formarCaracteristicas(villano.hobbies)
 			}
 			
-	$http.post("http://localhost:9000/villano/" + villanoId, JSON.stringify(villanoJson)).then(function(response) {
+	$http.post("http://localhost:9000/villano", JSON.stringify(villanoJson)).then(function(response) {
 			ctrl.setNombreVillanoSeleccionado("");
 			ctrl.setSeniasParticulares([]);
 			ctrl.setHobbies([]);
