@@ -105,6 +105,14 @@
 			CarmenService.borrarVillanoConId(idVillano, this);
 		}
 		
+		this.agregarNuevoVillano = function() {
+			this.villanoSeleccionado.nombre = this.nombre;
+			this.villanoSeleccionado.sexo = "Hombre"; // cambiar
+			this.villanoSeleccionado.seniasParticulares = this.senias;
+			this.villanoSeleccionado.hobbies = this.hobbies;
+			CarmenService.crearVillano(this.villanoSeleccionado.id, this.villanoSeleccionado, this);
+		}
+		
 		this.editarVillano = function() {
 			this.villanoSeleccionado.nombre = this.nombre;
 			this.villanoSeleccionado.sexo = "Hombre"; // cambiar

@@ -129,7 +129,27 @@ carmenApp.service("CarmenService", function ($http) {
 			ctrl.setHobbies([]);
 			
 			console.log("El villano ya fue editado");
-			ctrl.fetchVillanos(); // Actualizo las listas de paises.
+			ctrl.fetchVillanos(); // Actualizo las listas de villanos.
+	}
+	)}
+	
+	this.crearVillano = function(villanoId, villano, ctrl) {
+			// metodo donde arregla las caracteristicas
+			var villanoJson = {
+			  "id": villano.id,
+			  "nombre": villano.nombre,
+			  "sexo": villano.sexo,
+			  "seniasParticulares": this.formarCaracteristicas(villano.seniasParticulares),
+			  "hobbies": this.formarCaracteristicas(villano.hobbies)
+			}
+			
+	$http.post("http://localhost:9000/villano/" + villanoId, JSON.stringify(villanoJson)).then(function(response) {
+			ctrl.setNombreVillanoSeleccionado("");
+			ctrl.setSeniasParticulares([]);
+			ctrl.setHobbies([]);
+			
+			console.log("El villano" + response.data.nombre + "ya fue agregado");
+			ctrl.fetchVillanos(); // Actualizo las listas de villanos.
 	}
 	)}
 	
