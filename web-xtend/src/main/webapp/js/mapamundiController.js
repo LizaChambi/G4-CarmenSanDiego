@@ -27,6 +27,10 @@
 		//	return nombre;
 		//}
 		
+		this.irAExpedientes = function() {
+			$state.go("expediente");
+		}
+		
 		this.eliminarLugar = function (lugar) {
 			var lugaresAux= [];
 			for (var i = 0; i < this.lugares.length; i++)

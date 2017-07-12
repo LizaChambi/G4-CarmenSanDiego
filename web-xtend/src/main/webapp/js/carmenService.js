@@ -19,6 +19,13 @@ carmenApp.service("CarmenService", function ($http) {
 			}
 	)}
 	
+	this.fetchVillanos = function(ctrl){
+	$http.get("http://localhost:9000/villanos").then(function(response) {
+			console.log(response.data);
+			ctrl.setVillanos(response.data);
+			}
+	)}
+	
 	this.villanos = function(){
 	//return
 	$http.get("http://localhost:9000/villanos").then(function(response) {
@@ -51,6 +58,17 @@ carmenApp.service("CarmenService", function ($http) {
 	}
 	)}
 	
+	this.borrarVillanoConId = function(idVillano, ctrl) {
+	$http.delete("http://localhost:9000/villanos/" + idVillano).then(function(response) {
+			console.log("Villano " + idVillano + " borrado");
+			ctrl.setVillanoSeleccionado(null);
+			ctrl.setNombreVillanoSeleccionado("");
+			ctrl.setSeniasParticulares([]);
+			ctrl.setHobbies([]);
+			ctrl.fetchVillanos();
+	}
+	)}
+	
 	this.formarConexionDePais = function(conexion) {
 		return {"nombre": conexion.nombre, "id": conexion.id};
 	}
@@ -62,6 +80,19 @@ carmenApp.service("CarmenService", function ($http) {
 			conexionesAux.push(this.formarConexionDePais(conexiones[i]));
 		}
 		return conexionesAux;
+	}
+	
+	this.formarCaracteristicaDelVillano = function(senia) {
+		return {"nombre": senia.nombre};
+	}
+	
+	this.formarCaracteristicas = function(senias) {
+		var seniasAux = [];
+		for (var i=0; i<senias.length; i++)
+		{
+			seniasAux.push(this.formarCaracteristicaDelVillano(senias[i]));
+		}
+		return seniasAux;
 	}
 	
 	this.editarPaisConId = function(paisId, pais, ctrl) {
@@ -82,6 +113,26 @@ carmenApp.service("CarmenService", function ($http) {
 	}
 	)}
 	
+	this.editarVillanoConId = function(villanoId, villano, ctrl) {
+			// metodo donde arregla las caracteristicas
+			var villanoJson = {
+			  "id": villano.id,
+			  "nombre": villano.nombre,
+			  "sexo": villano.sexo,
+			  "seniasParticulares": this.formarCaracteristicas(villano.seniasParticulares),
+			  "hobbies": this.formarCaracteristicas(villano.hobbies)
+			}
+			
+	$http.put("http://localhost:9000/villano/" + villanoId, JSON.stringify(villanoJson)).then(function(response) {
+			ctrl.setNombreVillanoSeleccionado("");
+			ctrl.setSeniasParticulares([]);
+			ctrl.setHobbies([]);
+			
+			console.log("El villano ya fue editado");
+			ctrl.fetchVillanos(); // Actualizo las listas de paises.
+	}
+	)}
+	
 	
 	/* 	NO SE EJECUTA
 	
@@ -96,11 +147,13 @@ carmenApp.service("CarmenService", function ($http) {
 	}
 	)}
 	*/
-	this.villanoConId = function(idVillano) {
-	//return
+	this.villanoConId = function(idVillano, ctrl) {
 	$http.get("http://localhost:9000/villano/" + idVillano).then(function(response) {
 			console.log(response.data);
-			return response.data;
+			ctrl.setVillanoSeleccionado(response.data);
+			ctrl.setNombreVillanoSeleccionado(response.data.nombre);
+			ctrl.setSeniasParticulares(response.data.seniasParticulares);
+			ctrl.setHobbies(response.data.hobbies);
 	}
 	)}
 

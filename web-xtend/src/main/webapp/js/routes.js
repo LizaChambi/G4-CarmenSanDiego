@@ -9,5 +9,11 @@ carmenApp.config(function ($stateProvider, $urlRouterProvider) {
       templateUrl: "partials/admMapamundi.html",
       controller: "MapamundiController as mapaCtrl"
     })
+	
+	.state('expediente', {
+      url: "/villanos",
+      templateUrl: "partials/admExpediente.html",
+      controller: "ExpedienteController as expCtrl"
+    })
 
 });
