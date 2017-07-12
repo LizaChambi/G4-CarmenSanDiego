@@ -117,7 +117,12 @@ class Pais {
 		if(lugares.size != 3) {
 			throw new UserException("Te faltan agregar mas Lugar para visitar")
 		}
-		
+	}
+	
+	def validarCaracteristicas(String nombre, List<LugarDeInteres> lugares, List<Pais> conexiones)
+	{
+		if (nombrePais.isEmpty) throw new UserException("El nombre no puede quedar vacio")
+		if (lugares.size != 3) throw new UserException("Debe haber 3 lugares de interes")
 	}
 	
 	def agregarCaracteristica(Caracteristicas caracteristica) {
@@ -234,6 +239,13 @@ class Pais {
 	def elLugarYaFueAgregado(LugarDeInteres interes) 
 	{
 		lugares.exists[l | l.nombre == interes.nombre]
+	}
+	
+	def editarCaracteristicas(String nombre, List<LugarDeInteres> lugares, List<Pais> conexiones) 
+	{
+		this.nombrePais = nombre
+		this.lugares = lugares
+		this.paisesConexionAerea = conexiones
 	}
 	
 }

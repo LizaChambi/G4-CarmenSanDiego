@@ -1,0 +1,123 @@
+<div ng-controller="MapamundiController as mapaCtrl">
+  <form>
+    <div class="panel panel-default margin-top">
+		
+		<div class="row">
+			<div class="col-xs-4">
+				<img src="./images/logoEdicion.jpg" class="imagenSize">
+			</div>
+			<div class="col-xs-8 text-center">
+				<input type="button" class="btn btn-success" value="Mapamundi"></input>
+				<input type="button" class="btn btn-success" value="Expediente"></input>
+				<h1> Mapamundi
+				</h1>
+			</div>
+		</div>
+	
+        <div class="row" >
+		<form>
+			<div class = "container-fluid">
+				<div class="col-xs-4">
+					<table class="table table-bordered">
+						<tr>
+							<th>Paises</th>
+							<th>#</th>
+						</tr>
+						
+						<tr ng-repeat="pais in mapaCtrl.getPaises()" class="animate-repeat">
+							<td>{{pais.nombre}}</td>
+							<td>
+								<button type="button" class="btn btn-default" aria-label="Left Align" ng-click="mapaCtrl.deletePaisConId(pais.id)">
+									<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+								</button>
+								<button type="button" class="btn btn-default" aria-label="Left Align" ng-click="mapaCtrl.getPaisConId(pais.id)">
+									<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+								</button>
+
+							</td>
+						</tr>
+					</table>
+					
+					<div class="pull-right">
+						<input type="button" class="btn btn-success" value="Nuevo"></input>
+					</div>
+				</div>
+				
+				<div class="col-xs-8">
+				
+					<div class="container-fluid">
+						<p> Nombre: </p>
+						<input class="form-control" type="text" placeholder="Nombre del pais." ng-model="mapaCtrl.nombre"> </input>
+					</div>
+					
+					<!--	TABLA DE LOS LAS CONEXIONES	-->
+					
+					<div class="container-fluid">
+						<table class="table table-bordered">
+								<tr>
+									<th>Conexiones</th>
+									<th>#</th>
+								</tr>
+							
+								<tr ng-repeat="conexion in mapaCtrl.getConexPaisSeleccionado()" class="animate-repeat">
+									<td>{{conexion.nombre}}</td>
+									<td>
+										<button type="button" class="btn btn-default pull-left" aria-label="Left Align" ng-click="mapaCtrl.eliminarConexion(conexion.id)">
+										<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+									</button>
+								</td>
+							</tr>
+						</table>
+					
+						<div class="pull-right">
+							<select ng-model="mapaCtrl.conexionSeleccionada">
+								<option  ng-repeat="pais in mapaCtrl.getPaisesFiltrados()">{{pais.nombre}}</option>
+							</select>
+							<button type = "submit" class = "btn btn-default" ng-click="mapaCtrl.agregarConexion()">
+								<span class = "glyphicon glyphicon-plus"></span>
+							</button>
+						</div>
+					</div>
+					
+					<div class="container-fluid">
+						
+						<!--	TABLA DE LOS LUGARES DE INTERES	-->
+						<table class="table table-bordered">
+							<tr>
+								<th>Lugares de interés</th>
+								<th>#</th>
+							</tr>
+						
+							<tr ng-repeat="lugar in mapaCtrl.getLugaresPaisSeleccionado()" class="animate-repeat">
+								<td>{{lugar}}</td>
+								<td>
+									<button type="button" class="btn btn-default" aria-label="Left Align" ng-click="mapaCtrl.eliminarLugar(lugar)">
+										<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+									</button>
+								</td>
+							</tr>
+						</table>
+						
+						<div class="pull-right">
+							<select ng-model="mapaCtrl.lugarSeleccionado">
+								<option ng-repeat="lugar in mapaCtrl.lugaresDisponibles">{{lugar}}</option>
+							</select>
+							<button type = "submit" class = "btn btn-default" ng-click="mapaCtrl.agregarLugar()">
+								<span class = "glyphicon glyphicon-plus"></span>
+							</button>
+						</div>
+					</div>
+					<!-- 
+					-- 	ACTUALIZAR LOS CAMBIOS
+					-->
+					<div class="container-fluid pull-right">
+						<input type="button" class="btn btn-success" value="Aceptar" ng-click="mapaCtrl.editarPais()"></input>
+					</div>
+					
+				</div>
+			</div>
+		</form>
+		</div>
+    </div>
+  </form> 
+</div>

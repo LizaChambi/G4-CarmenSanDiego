@@ -21,6 +21,8 @@ import edu.ui.dominioXTrest.CasoRest
 import edu.ui.domain.CarmenSan10.Pais
 import edu.ui.domain.CarmenSan10.LugarDeInteres
 import edu.ui.dominioXTrest.PistaRest
+import edu.ui.dominioXTrest.PaisConID
+import java.util.List
 
 @Controller
 class CarmenSan10RestAPI {
@@ -85,6 +87,29 @@ class CarmenSan10RestAPI {
 		}
 	}
 	
+	
+	@Put("/pais/:id")
+	def actualizarPais(@Body String body)
+	{
+		response.contentType = ContentType.APPLICATION_JSON
+		val PaisConID paisActualizado = body.fromJson(PaisConID) // pais nuevo
+	    val Integer idP = Integer.valueOf(id) // id del villano a modificar
+	     
+	    val List<Pais> conexionesNuevas = carmenSan10.mapamundi.conexionesDelPais(paisActualizado.conexionesIds);
+		
+		println(conexionesNuevas)
+		
+		try 
+		{
+			carmenSan10.mapamundi.editarPais(paisActualizado.nombre, paisActualizado.lugares, conexionesNuevas, idP)
+			ok("Pais actualizado correctamente".toJson)  
+        } 
+        catch (UnrecognizedPropertyException exception) 
+        {
+        	badRequest(getErrorJson("El body debe ser un Pais"))
+        }
+		
+	}
 	
 	@Post("/pais")
 	def createPais(@Body String body) {

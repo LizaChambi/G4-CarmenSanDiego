@@ -45,6 +45,11 @@ class PaisConID {
 		mini_conexiones = rests
 	}
 	
+	def getConexionesIds() 
+	{
+		mini_conexiones.map[p | p.id].toList
+	}
+	
 }
 
 @Accessors

@@ -1,43 +1,27 @@
-<!Doctype html>
+<!doctype html>
 <html lang="en" ng-app="carmenApp">
 <head>
-    <meta charset="utf-8">
-    
-    <!-- add AngularJS | node_modules -->
-    <script src="node_modules/angular/angular.min.js"></script>
-    <script src="node_modules/angular-ui-router/release/angular-ui-router.min.js"></script>
-    <script src="node_modules/angular-resource/angular-resource.min.js"></script>
-
-    <!-- JQUERY -->
-    <script src="node_modules/jquery/dist/jquery.min.js"></script>
-
-    <!-- BOOTSTRAP -->
-    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap-theme.min.css">
-    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-
-    <title>¿Dónde está Carmen Sandiego?</title>
+  <meta charset="utf-8">
+  <title>¿Dónde está Carmen Sandiego?</title>
+  <link rel="stylesheet" href="css/carmen.css"/>
+  <!-- import JQuery -->
+  <script src="node_modules/jquery/dist/jquery.min.js"></script>
+  <!-- import Angular -->
+  <script src="node_modules/angular/angular.min.js"></script>
+  <script src="node_modules/angular/angular-ui-router.js"></script>
+  <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap-theme.min.css">
+  <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+  <!-- import App -->
+  <script src="js/carmenApp.js"></script>
+  <script src="js/mapamundiController.js"></script>
+  <script src="js/carmenService.js"></script>
+  <script src="js/routes.js"></script>
 </head>
-<body ng-controller="MenuCtrl as menu">
-
-    <div class="container">
-        
-      <div ui-view></div>
-    </div><!-- /.container -->
-
-    <!-- add JSscript -->
-    <script src="js/app.js"></script>
-
-    <script src="js/menuController.js"></script>
-    <script src="js/carmenService.js"></script>
-    <script src="js/resolviendoController.js"></script>
-    
-    <script src="js/ExpedienteController.js"></script>
-    <script src="js/expedienteService.js"></script>
-    
-    <script src="js/mapamundiController.js"></script>
-    <script src="js/mapamundiService.js"></script>
-    <script type="text/javascript" src="js/routes.js"></script>
-    
+<body>
+  <!-- Comienza Panel Principal -->
+  <div class= "mainContainer container-fluid">
+          <div ui-view></div>
+  </div>
+  <!-- Finaliza el panel central. -->
 </body>
-</html>

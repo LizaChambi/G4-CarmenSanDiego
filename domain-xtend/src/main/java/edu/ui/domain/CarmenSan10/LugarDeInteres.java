@@ -27,5 +27,5 @@ public enum LugarDeInteres {
 	public String getNombreLugares() {
 		return this.getNombre();
 	}
-
+	
 }

@@ -71,4 +71,23 @@ class Mapamundi {
 		
 	}
 	
+	def conexionesDelPais(List<Integer> ids) 
+	{
+		var conexionesRes = new ArrayList<Pais>
+		
+		for(id: ids)
+		{
+			conexionesRes.add(getPais(id))
+		}
+		
+		conexionesRes
+	}
+	
+	def editarPais(String nombre, List<LugarDeInteres> lugares, List<Pais> conexiones, Integer id) 
+	{
+		getPais(id).validarCaracteristicas(nombre, lugares, conexiones)
+		getPais(id).editarCaracteristicas(nombre, lugares, conexiones)
+	}
+	
+	
 }

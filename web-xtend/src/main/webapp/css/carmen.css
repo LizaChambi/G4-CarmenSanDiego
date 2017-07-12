@@ -1,0 +1,12 @@
+.margin-top
+{
+	margin-top:30px;
+}
+
+.imagenSize
+{
+	max-height: 50px;
+	max-width: 100px;
+	min-height: 50px;
+	max-width: 100px;
+}

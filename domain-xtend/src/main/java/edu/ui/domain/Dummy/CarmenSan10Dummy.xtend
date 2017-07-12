@@ -32,20 +32,20 @@ class CarmenSan10Dummy
 		venezuela.caracteristicaPais = #[new Caracteristicas("Maduro a la cabeza."), new Caracteristicas("Su lider cosmico supremo habla con pajaritos.")]
 		
 		
-		val brazil = new Pais("Brazil", #[LugarDeInteres.EMBAJADA, LugarDeInteres.BANCO, LugarDeInteres.CLUB], #[venezuela]) => [
+		val brasil = new Pais("Brasil", #[LugarDeInteres.EMBAJADA, LugarDeInteres.BANCO, LugarDeInteres.CLUB], #[venezuela]) => [
 			caracteristicaPais = #[new Caracteristicas("Se habla portugues."), new Caracteristicas("Su bandera es verde y amarilla.")]
 		]
 		
-		val uruguay = new Pais("Uruguay", #[LugarDeInteres.BANCO, LugarDeInteres.BIBLIOTECA, LugarDeInteres.CLUB], #[venezuela, brazil]) => [
+		val uruguay = new Pais("Uruguay", #[LugarDeInteres.BANCO, LugarDeInteres.BIBLIOTECA, LugarDeInteres.CLUB], #[venezuela, brasil]) => [
 			caracteristicaPais = #[new Caracteristicas("A toda hora mate."), new Caracteristicas("Es una una provincia de Argentina.")]
 		]
 		
-		val argentina = new Pais("Argentina", #[LugarDeInteres.EMBAJADA, LugarDeInteres.BIBLIOTECA, LugarDeInteres.BANCO], #[venezuela, brazil, uruguay]) => [
+		val argentina = new Pais("Argentina", #[LugarDeInteres.EMBAJADA, LugarDeInteres.BIBLIOTECA, LugarDeInteres.BANCO], #[venezuela, brasil, uruguay]) => [
 			caracteristicaPais = #[new Caracteristicas("Bandera azul y blanca."), new Caracteristicas("Su arbol nacional es el Ceibo.")]
 		]
 		
 		mapamundi.setPaisMini(venezuela) // id = 1
-		mapamundi.setPaisMini(brazil)	 // id = 2
+		mapamundi.setPaisMini(brasil)	 // id = 2
 		mapamundi.setPaisMini(argentina) // id = 3
 		mapamundi.setPaisMini(uruguay)	 // id = 4
 		
@@ -99,7 +99,7 @@ class CarmenSan10Dummy
 		 
 		 val plan = new ArrayList<Pais>()
 		 plan.add(argentina)
-		 plan.add(brazil)
+		 plan.add(brasil)
 		 plan.add(venezuela)
 		 caso = new Caso(villanoCS,	plan, reporteDelCrimen, objetoRobado, argentina)
 		 caso.pistasDelPlanDeEscape = caso.pistasDelRecorrido(plan)
